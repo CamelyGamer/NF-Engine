@@ -1,7 +1,5 @@
 package shaders;
 
-import options.OptionsHelpers;
-
 import openfl.filters.ColorMatrixFilter;
 import openfl.filters.BitmapFilter;
 import flixel.FlxG;

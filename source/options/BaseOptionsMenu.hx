@@ -3,7 +3,7 @@ package options;
 import objects.CheckboxThingie;
 import objects.AttachedText;
 import options.Option;
-import objects.Notification;
+//import objects.Notification;
 
 class BaseOptionsMenu extends MusicBeatSubstate
 {

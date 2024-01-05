@@ -1,10 +1,5 @@
 package options;
 
-import flixel.graphics.frames.FlxAtlasFrames;
-import animateatlas.AtlasFrameMaker;
-import flixel.graphics.frames.FlxFrame;
-import openfl.sensors.Accelerometer;
-import objects.Character;
 import backend.ClientPrefs;
 
 class InitialSettings extends BaseOptionsMenu

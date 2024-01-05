@@ -139,7 +139,7 @@ class OptionsState extends MusicBeatState
 		});
 
 		#if android
-		addVirtualPad(UP_DOWN, B_A);
+		addVirtualPad(UP_DOWN, A_B);
 		#end
 
 		super.create();
@@ -156,9 +156,6 @@ class OptionsState extends MusicBeatState
 
 		FlxG.resizeWindow(ClientPrefs.data.width, ClientPrefs.data.height);
 		FlxG.resizeGame(ClientPrefs.data.width, ClientPrefs.data.height);
-
-		Lib.application.window.opacity = ClientPrefs.data.windowOpacity
-;
 		trace('Se Forzo la Carga de los ajustes!!');
 	}
 

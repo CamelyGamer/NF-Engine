@@ -69,8 +69,8 @@ class MusicBeatState extends FlxUIState
 	}
 	#end
 
-	public function updatestate(state:String, ?language:String) {
-		
+	public static function updatestate(state:String, ?language:String) {
+
 	}
 
 	#if android

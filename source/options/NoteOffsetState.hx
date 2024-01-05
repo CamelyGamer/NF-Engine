@@ -4,7 +4,6 @@ import flixel.math.FlxPoint;
 
 import backend.StageData;
 import objects.Character;
-import objects.HealthBar;
 import flixel.addons.display.shapes.FlxShapeCircle;
 
 import states.stages.StageWeek1 as BackgroundStage;
@@ -27,7 +26,6 @@ class NoteOffsetState extends MusicBeatState
 	var barPercent:Float = 0;
 	var delayMin:Int = -500;
 	var delayMax:Int = 500;
-	var timeBar:HealthBar;
 	var timeTxt:FlxText;
 	var beatText:Alphabet;
 	var beatTween:FlxTween;
@@ -135,14 +133,7 @@ class NoteOffsetState extends MusicBeatState
 		barPercent = ClientPrefs.data.noteOffset;
 		updateNoteDelay();
 		
-		timeBar = new HealthBar(0, timeTxt.y + (timeTxt.height / 3), 'healthBar', function() return barPercent, delayMin, delayMax);
-		timeBar.scrollFactor.set();
-		timeBar.screenCenter(X);
-		timeBar.visible = false;
-		timeBar.cameras = [camHUD];
-		timeBar.leftBar.color = FlxColor.LIME;
 
-		add(timeBar);
 		add(timeTxt);
 
 		///////////////////////
@@ -528,7 +519,6 @@ class NoteOffsetState extends MusicBeatState
 		comboNums.visible = onComboMenu;
 		dumbTexts.visible = onComboMenu;
 		
-		timeBar.visible = !onComboMenu;
 		timeTxt.visible = !onComboMenu;
 		beatText.visible = !onComboMenu;
 
