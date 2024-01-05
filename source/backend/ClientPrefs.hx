@@ -122,7 +122,66 @@ class SaveVariables {
 	public var hitboxalpha:Float = 0.2;
 	public var VirtualPadAlpha:Float = 0.75;    
 	
-	public var language:Int = 0; //for english at begin
+	public var languageNum:Int = 0; //for english at begin
+
+		//System Versions
+		public var endingCorruprion:String = '2.0';
+		public var endingEngine:String = '2.3';
+		public var pathVersion:String = '1.0';
+		public var username:String = 'User';
+	
+		//Initial Settings
+		public var Welcome:Bool = false;
+		public var graphics_internal:String = 'Medium';
+		public var Update_Support:Bool = false;
+		public var SpritesFPS:Int = 24;
+		public var InitialSettings:Bool = false;
+		public var InternetStatus:String = 'Disconnect';
+		public var demo:Bool = true;
+		public var downloadMode:Bool = false;
+	
+		//Menu
+		public var musicState:String = 'Hallucination';
+		public var notivisible:Bool = true;
+		public var timetrans:Int = 1;
+		public var language:String = 'Inglish';
+		public var Internet:String = 'disabled';
+		public var recordoptimization:String = 'Disabled';
+		public var music:String = 'TerminalMusic';
+	
+		//GamePlay
+		public var concetration:Bool = false;
+		public var overlays:Bool = true;
+		public var dodge:Bool = true;
+		public var alphahud:Bool = true;
+	
+		//Window
+		public var fullyscreen:Bool = false;
+		public var width:Int = 1280;
+		public var height:Int = 720;
+		public var fullscreen:Bool = false;
+		public var opacity_mouse:Float = 1;
+		public var windowOpacity:Float = 1;
+	
+		//Plugins
+		public var colorplus:Bool = false;
+		public var moredebug:Bool = false;
+		public var settingsmax:Bool = false;
+	
+		//Optimizations
+		public var noneAnimations:Bool = false;
+		public var noneBGAnimated:Bool = false;
+		public var noneFixeds:Bool = false;
+		public var movedComponents:Bool = false;
+		public var updateState:Bool = false;
+		public var noneNet:Bool = false;
+		public var nonePost:Bool = false;
+		public var noneMods:Bool = false;
+		public var nonePlugins:Bool = false;
+		public var updateSettings:Bool = false;
+	
+		//Others
+		public var coins:Int = 0;
      
 	public function new()
 	{

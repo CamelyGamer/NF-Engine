@@ -4,7 +4,6 @@ import backend.InputFormatter;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import objects.AttachedSprite;
-import flixel.addons.transition.FlxTransitionableState;
 
 import flixel.input.keyboard.FlxKey;
 import flixel.input.gamepad.FlxGamepad;
@@ -23,6 +22,9 @@ class ControlsSubState extends MusicBeatSubstate
 		[true, 'Down', 'note_down', 'Note Down'],
 		[true, 'Up', 'note_up', 'Note Up'],
 		[true, 'Right', 'note_right', 'Note Right'],
+		//[true],
+		//[true, 'ACTIONS'],
+		//[true, 'Hey', '', ''],
 		[true],
 		[true, 'UI'],
 		[true, 'Left', 'ui_left', 'UI Left'],
@@ -55,8 +57,8 @@ class ControlsSubState extends MusicBeatSubstate
 	var grpBinds:FlxTypedGroup<Alphabet>;
 	var selectSpr:AttachedSprite;
 
-	var gamepadColor:FlxColor = 0xfffd7194;
-	var keyboardColor:FlxColor = 0xff7192fd;
+	var gamepadColor:FlxColor = 0xff000000;
+	var keyboardColor:FlxColor = 0xff343434;
 	var onKeyboardMode:Bool = true;
 	
 	var controllerSpr:FlxSprite;
@@ -107,10 +109,56 @@ class ControlsSubState extends MusicBeatSubstate
 		add(text);
 
 		createTexts();
-		
-		#if android
-		addVirtualPad(FULL, A_B);
-		#end
+
+		var TipText:FlxText;
+		var TipText2:FlxText;
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+			if(onKeyboardMode) {
+				if (ClientPrefs.data.language == 'Inglish') {
+					TipText2 = new FlxText(12, FlxG.height - 44, 0, "Press 'Shift' to start 'Hey' animation", 12);
+					TipText2.scrollFactor.set();
+					TipText2.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					TipText2.alpha = 1;
+					add(TipText2);
+					}
+					if (ClientPrefs.data.language == 'Spanish') {
+						TipText2 = new FlxText(12, FlxG.height - 44, 0, "presiona 'Shift' para iniciar animacion de 'Hey'", 12);
+						TipText2.scrollFactor.set();
+						TipText2.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+						TipText2.alpha = 1;
+						add(TipText2);
+					}
+					if (ClientPrefs.data.language == 'Portuguese') {
+						TipText2 = new FlxText(12, FlxG.height - 44, 0, "Pressione 'Shift' para iniciar a animação 'Hey'", 12);
+						TipText2.scrollFactor.set();
+						TipText2.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+						TipText2.alpha = 1;
+						add(TipText2);
+					}
+			} else {
+				if (ClientPrefs.data.language == 'Inglish') {
+					TipText = new FlxText(12, FlxG.height - 24, 0, "Press '" + gamepad.justPressed.START + "' to start 'Hey' animation", 12);
+					TipText.scrollFactor.set();
+					TipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					TipText.alpha = 1;
+					add(TipText);
+					}
+					if (ClientPrefs.data.language == 'Spanish') {
+						TipText = new FlxText(12, FlxG.height - 24, 0, "presiona '" + gamepad.justPressed.START + "' para iniciar animacion de 'Hey'", 12);
+						TipText.scrollFactor.set();
+						TipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+						TipText.alpha = 1;
+						add(TipText);
+					}
+					if (ClientPrefs.data.language == 'Portuguese') {
+						TipText = new FlxText(12, FlxG.height - 24, 0, "Pressione '" + gamepad.justPressed.START + "' para iniciar a animação 'Hey'", 12);
+						TipText.scrollFactor.set();
+						TipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+						TipText.alpha = 1;
+						add(TipText);
+					}
+			}
 	}
 
 	var lastID:Int = 0;
@@ -276,14 +324,9 @@ class ControlsSubState extends MusicBeatSubstate
 
 		if(!binding)
 		{
-			if(controls.BACK || FlxG.gamepads.anyJustPressed(B))
+			if(FlxG.keys.justPressed.ESCAPE || FlxG.gamepads.anyJustPressed(B))
 			{
-				#if android
-				FlxTransitionableState.skipNextTransOut = true;
-				FlxG.resetState();
-				#else
 				close();
-				#end
 				return;
 			}
 			if(FlxG.keys.justPressed.CONTROL || FlxG.gamepads.anyJustPressed(LEFT_SHOULDER) || FlxG.gamepads.anyJustPressed(RIGHT_SHOULDER)) swapMode();

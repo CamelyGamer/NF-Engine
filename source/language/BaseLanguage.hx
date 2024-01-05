@@ -13,7 +13,7 @@ class BaseLanguage {
 class LanguageFactory {
     
     public function new() {
-        var language = LanguageFactory.getInstance(ClientPrefs.data.language);
+        var language = LanguageFactory.getInstance(ClientPrefs.data.languageNum);
         return language; // 调用 Class 的 var
     }
     

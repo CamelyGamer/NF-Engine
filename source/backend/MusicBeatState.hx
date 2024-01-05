@@ -69,6 +69,10 @@ class MusicBeatState extends FlxUIState
 	}
 	#end
 
+	public function updatestate(state:String, ?language:String) {
+		
+	}
+
 	#if android
 	public function removeVirtualPad() {
 		//controls.removeFlxInput(trackedinputsUI);

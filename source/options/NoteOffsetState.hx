@@ -4,7 +4,7 @@ import flixel.math.FlxPoint;
 
 import backend.StageData;
 import objects.Character;
-import objects.Bar;
+import objects.HealthBar;
 import flixel.addons.display.shapes.FlxShapeCircle;
 
 import states.stages.StageWeek1 as BackgroundStage;
@@ -27,7 +27,7 @@ class NoteOffsetState extends MusicBeatState
 	var barPercent:Float = 0;
 	var delayMin:Int = -500;
 	var delayMax:Int = 500;
-	var timeBar:Bar;
+	var timeBar:HealthBar;
 	var timeTxt:FlxText;
 	var beatText:Alphabet;
 	var beatTween:FlxTween;
@@ -39,6 +39,8 @@ class NoteOffsetState extends MusicBeatState
 
 	override public function create()
 	{
+
+		MusicBeatState.updatestate("Note Offset Settings");
 		// Cameras
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
@@ -133,7 +135,7 @@ class NoteOffsetState extends MusicBeatState
 		barPercent = ClientPrefs.data.noteOffset;
 		updateNoteDelay();
 		
-		timeBar = new Bar(0, timeTxt.y + (timeTxt.height / 3), 'healthBar', function() return barPercent, delayMin, delayMax);
+		timeBar = new HealthBar(0, timeTxt.y + (timeTxt.height / 3), 'healthBar', function() return barPercent, delayMin, delayMax);
 		timeBar.scrollFactor.set();
 		timeBar.screenCenter(X);
 		timeBar.visible = false;
@@ -171,11 +173,6 @@ class NoteOffsetState extends MusicBeatState
 		FlxG.sound.playMusic(Paths.music('offsetSong'), 1, true);
 
 		super.create();
-		
-		#if android
-		addVirtualPad(FULL, A_B_C);
-		addPadCamera();
-		#end
 	}
 
 	var holdTime:Float = 0;
@@ -351,7 +348,7 @@ class NoteOffsetState extends MusicBeatState
 				}
 			}
 
-			if(controls.RESET #if android || MusicBeatState._virtualpad.buttonC.justPressed #end)
+			if(controls.RESET)
 			{
 				for (i in 0...ClientPrefs.data.comboOffset.length)
 				{
@@ -389,7 +386,7 @@ class NoteOffsetState extends MusicBeatState
 				updateNoteDelay();
 			}
 
-			if(controls.RESET #if android || MusicBeatState._virtualpad.buttonC.justPressed #end)
+			if(controls.RESET)
 			{
 				holdTime = 0;
 				barPercent = 0;
@@ -418,8 +415,14 @@ class NoteOffsetState extends MusicBeatState
 					FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.data.pauseMusic)));
 				else
 					FlxG.sound.music.volume = 0;
+			} else {
+
+				if (ClientPrefs.data.music == 'Disabled') FlxG.sound.playMusic(Paths.music('none'));
+
+				if (ClientPrefs.data.music == 'Hallucination') FlxG.sound.playMusic(Paths.music('Hallucination'));
+
+				if (ClientPrefs.data.music == 'TerminalMusic') FlxG.sound.playMusic(Paths.music('TerminalMusic'));
 			}
-			else FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			FlxG.mouse.visible = false;
 		}
 
