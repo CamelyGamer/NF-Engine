@@ -5,7 +5,6 @@ import backend.ClientPrefs;
 class InitialSettings extends BaseOptionsMenu
 {
     var antialiasingOption:Int;
-	var boyfriend:Character = null;
     public function new()
         {
             ClientPrefs.loadPrefs();
