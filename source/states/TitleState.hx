@@ -93,7 +93,6 @@ class TitleState extends MusicBeatState
 	var phantomSr:FlxSprite;
 
 	var saturated:ColorSwap;
-	var complit:GlitchEffect;
 
 	var titleTxt:FlxText;
 	var titleTxt2:FlxText;
@@ -348,9 +347,6 @@ class TitleState extends MusicBeatState
 		logo.screenCenter();
 
 		new ColorSwap();
-
-		complit = new GlitchEffect();
-		complit.iTime.value = [200, 200, 200];
 
 		// FlxTween.tween(logoBl, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
 		// FlxTween.tween(logo, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG, startDelay: 0.1});
