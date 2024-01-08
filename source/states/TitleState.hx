@@ -31,6 +31,8 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
+import backend.VideoHandler_Title;
+
 
 typedef TitleData =
 {
@@ -70,7 +72,7 @@ class TitleState extends MusicBeatState
 
 	var wackyImage:FlxSprite;
 
-	#if desktop
+	#if TITLE_SCREEN_EASTER_EGG
 	var easterEggKeys:Array<String> = [
 		'SHADOW', 'RIVER', 'SHUBS', 'BBPANZU'
 	];
@@ -101,16 +103,43 @@ class TitleState extends MusicBeatState
 		
 		//https://github.com/beihu235/AndroidDialogs
 		
-		if (ClientPrefs.data.language == 'Inglish') lang = 'Welcome to Ending Corruption Android\nVersion: ' + ClientPrefs.data.endingcorruption;
-
-		if (ClientPrefs.data.language == 'Spanish') lang = 'Bienvenido a Ending Corruption Android\nVersion: ' + ClientPrefs.data.endingcorruption;
-
-		if (ClientPrefs.data.language == 'Portuguese') lang = 'Bem-vindo ao Acabando com a Corrupção Android\nVersão: ' + ClientPrefs.data.endingcorruption;
+		#if android
+		/*
+		if (lime.app.Application.current.meta.get('title') != "Friday Night Funkin' NF Engine"
+		 || lime.app.Application.current.meta.get("packageName") != "com.NFengine"
+		 || lime.app.Application.current.meta.get("package") != "com.NFengine"
+		 || lime.app.Application.current.meta.get("version") != '1.1.0'
+		){
+		    
+		    //Sys.exit(1);		
+		   // return;
+		}
+		if (DeviceLanguage.getLang() == 'zh') 
+    		lang = '检测到引擎被修改，请使用官方版本' + System.platformVersion;
+    		else
+    		lang = 'The engine has been modified. Please use the official version';
+		    
+		    AndroidDialogsExtend.OpenToast(lang,2);
+		*/
+		if (DeviceLanguage.getLang() == 'zh') 
+		lang = '欢迎使用NF引擎\n版本: 1.1.0';
+		else
+		lang = 'Wellcome to NF Engine\nVersion: 1.1.0';
+		#end
 			
 		if(!checkOpenFirst){
+		
+		FlxTransitionableState.skipNextTransOut = true;
 										
 		checkOpenFirst = true;
+		
 		}
+		
+		#if android
+		FlxG.android.preventDefaultKeys = [BACK];
+		removeVirtualPad();
+		noCheckPress();
+		#end
 
 		#if LUA_ALLOWED
 		Mods.pushGlobalMods();
@@ -129,39 +158,31 @@ class TitleState extends MusicBeatState
 
 		ClientPrefs.loadPrefs();
 
-		#if android
-		FlxG.android.preventDefaultKeys = [BACK];
-		removeVirtualPad();
-		noCheckPress();
-		#end
-
 		#if CHECK_FOR_UPDATES
 		if(ClientPrefs.data.checkForUpdates && !closedState) {
 			//trace('checking for update');
-			var http = new haxe.Http("https://raw.githubusercontent.com/ThonnyDevYT/FNFVersion/main/AndroidVersion.txt");
+			var http = new haxe.Http("https://github.com/beihu235/NF-Engine-new/blob/main/gitVersion.txt");
 
 			http.onData = function (data:String)
 			{
 				updateVersion = data.split('\n')[0].trim();
-				var curVersion:String = ClientPrefs.data.endingCorruption;
+				var curVersion:String = MainMenuState.psychEngineVersion.trim();
 				
-				if(updateVersion != curVersion) {
-					ClientPrefs.data.oudate = true;
-					ClientPrefs.data.saveSettings();
-					ClientPrefs.data.loadPrefs();
-				}
-				if (updateVersion == curVersion) {
-					ClientPrefs.data.oudate = false;
-					ClientPrefs.data.saveSettings();
-					ClientPrefs.data.loadPrefs();
+				if(updateVersion != '1.1.0(beta)') {
+				var lang:String = '';
+		                if (DeviceLanguage.getLang() == 'zh') 
+		                lang = '发现新版本! 请前往作者主页了解略详';
+		                else
+		                lang = "find new version! press ok toGo to the author's home page for more details";
+		                AndroidDialogsExtend.OpenToast(lang,2);
+		               // SUtil.applicationAlert('!', 'find new version!');
+		                CoolUtil.browserLoad('https://b23.tv/jvrOG5G');
+		            
 				}
 			}
 
 			http.onError = function (error) {
 				trace('error: $error');
-				ClientPrefs.data.oudate = false;
-				ClientPrefs.data.saveSettings();
-				ClientPrefs.data.loadPrefs();
 			}
 
 			http.request();
@@ -173,7 +194,7 @@ class TitleState extends MusicBeatState
 		// IGNORE THIS!!!
 		titleJSON = Json.parse(Paths.getTextFromFile('images/gfDanceTitle.json'));
 
-		#if desktop
+		#if TITLE_SCREEN_EASTER_EGG
 		if (FlxG.save.data.psychDevsEasterEgg == null) FlxG.save.data.psychDevsEasterEgg = ''; //Crash prevention
 		switch(FlxG.save.data.psychDevsEasterEgg.toUpperCase())
 		{
@@ -211,7 +232,7 @@ class TitleState extends MusicBeatState
 		}
 
 		//FlxG.mouse.visible = true;
-		//FlxG.mouse.load(Paths.image('menuExtend/cursor').bitmap,1,0,0); 828
+		//FlxG.mouse.load(Paths.image('menuExtend/cursor').bitmap,1,0,0);
 		
         
         
@@ -301,13 +322,12 @@ class TitleState extends MusicBeatState
 		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
 		logoBl.animation.play('bump');
 		logoBl.updateHitbox();
-		logoBl.screenCenter();
+		// logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
 
 		if(ClientPrefs.data.shaders) swagShader = new ColorSwap();
 		gfDance = new FlxSprite(titleJSON.gfx, titleJSON.gfy);
 		gfDance.antialiasing = ClientPrefs.data.antialiasing;
-		gfDance.visible = false;
 
 		var easterEgg:String = FlxG.save.data.psychDevsEasterEgg;
 		if(easterEgg == null) easterEgg = ''; //html5 fix
@@ -315,7 +335,7 @@ class TitleState extends MusicBeatState
 		switch(easterEgg.toUpperCase())
 		{
 			// IGNORE THESE, GO DOWN A BIT
-			#if desktop
+			#if TITLE_SCREEN_EASTER_EGG
 			case 'SHADOW':
 				gfDance.frames = Paths.getSparrowAtlas('ShadowBump');
 				gfDance.animation.addByPrefix('danceLeft', 'Shadow Title Bump', 24);
@@ -514,7 +534,7 @@ class TitleState extends MusicBeatState
 				});
 				// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 			}
-			#if desktop
+			#if TITLE_SCREEN_EASTER_EGG
 			else if (FlxG.keys.firstJustPressed() != FlxKey.NONE)
 			{
 				var keyPressed:FlxKey = FlxG.keys.firstJustPressed();
@@ -779,12 +799,12 @@ class TitleState extends MusicBeatState
 			{
 				remove(ngSpr);
 				remove(credGroup);
-				FlxG.camera.flash(FlxColor.BLACK, 5);
+				FlxG.camera.flash(FlxColor.WHITE, 2);
 
 				var easteregg:String = FlxG.save.data.psychDevsEasterEgg;
 				if (easteregg == null) easteregg = '';
 				easteregg = easteregg.toUpperCase();
-				#if desktop
+				#if TITLE_SCREEN_EASTER_EGG
 				if(easteregg == 'SHADOW')
 				{
 					FlxG.sound.music.fadeOut();
@@ -798,7 +818,7 @@ class TitleState extends MusicBeatState
 			skippedIntro = true;
 		}
 	}
-	//var video:VideoSprite;
+	var video:VideoSprite;
 	function startVideo(name:String)
 	{
 	    skipVideo = new FlxText(0, FlxG.height - 26, 0, "Press " + #if android "Back on your phone " #else "Enter " #end + "to skip", 18);
@@ -825,7 +845,7 @@ class TitleState extends MusicBeatState
 		}
         
         
-		 /*var video:VideoSprite = new VideoSprite(0, 0, 1280, 720);
+		var video:VideoSprite = new VideoSprite(0, 0, 1280, 720);
 			video.playVideo(filepath);
 			add(video);
 			video.updateHitbox();
@@ -833,7 +853,7 @@ class TitleState extends MusicBeatState
 			{
 				videoEnd();
 				return;
-			}*/
+			}
 		showText();	
 		#else
 		FlxG.log.warn('Platform not supported!');
