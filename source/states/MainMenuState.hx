@@ -501,7 +501,7 @@ class MainMenuState extends MusicBeatState
 			}
 
 		if (Nit == true) {
-			if (controls.ACCEPT || MusicBeatState._virtualpad.buttonA == true)
+			if (controls.ACCEPT || MusicBeatState._virtualpad.buttonA.justPressed)
 			{
 				if (optionShit[curSelected] == 'donate')
 				{
