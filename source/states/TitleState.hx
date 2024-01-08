@@ -273,8 +273,11 @@ class TitleState extends MusicBeatState
 	var logoBl:FlxSprite;
 	var gfDance:FlxSprite;
 	var danceLeft:Bool = false;
-	var titleText:FlxSprite;
+	var titleText:FlxText;
 	var swagShader:ColorSwap = null;
+
+	var FadeTimer:FlxTimer;
+	var TextTime:FlxTimer;
 	
 	function startCutscenesIn()
 	{
@@ -382,31 +385,35 @@ class TitleState extends MusicBeatState
 			logoBl.shader = swagShader.shader;
 		}
 
-		titleText = new FlxSprite(titleJSON.startx, titleJSON.starty);
-		titleText.frames = Paths.getSparrowAtlas('titleEnter');
-		var animFrames:Array<FlxFrame> = [];
-		@:privateAccess {
-			titleText.animation.findByPrefix(animFrames, "ENTER IDLE");
-			titleText.animation.findByPrefix(animFrames, "ENTER FREEZE");
+		if (ClientPrefs.data.language == 'Spanish') {
+			titleTxt = new FlxText(0, 650, FlxG.width, 48);
+			textShow = "Presiona la Pantalla para Continuar".toLowerCase();
 		}
-		
-		if (animFrames.length > 0) {
-			newTitle = true;
-			
-			titleText.animation.addByPrefix('idle', "ENTER IDLE", 24);
-			titleText.animation.addByPrefix('press', ClientPrefs.data.flashing ? "ENTER PRESSED" : "ENTER FREEZE", 24);
+		if (ClientPrefs.data.language == 'Inglish') {
+			titleTxt = new FlxText(0, 650, FlxG.width, 48);
+			textShow = "Press the Screen to Continue".toLowerCase();
 		}
-		else {
-			newTitle = false;
-			
-			titleText.animation.addByPrefix('idle', "Press Enter to Begin", 24);
-			titleText.animation.addByPrefix('press', "ENTER PRESSED", 24);
+		if (ClientPrefs.data.language == 'Portuguese') {
+			titleTxt = new FlxText(0, 650, FlxG.width, 48);
+			textShow = "Pressione a tela para continuar".toLowerCase();
 		}
-		
-		titleText.animation.play('idle');
-		titleText.updateHitbox();
-		// titleText.screenCenter(X);
-		add(titleText);
+		titleTxt.setFormat(Paths.font("vnd.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		titleTxt.visible = true;
+		titleTxt.screenCenter(X);
+
+		titleTxt2 = new FlxText(0, 650, FlxG.width, "", 48);
+		titleTxt2.setFormat(Paths.font("vnd.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		titleTxt2.visible = false;
+		titleTxt2.screenCenter(X);
+
+		if (ClientPrefs.data.language == 'Spanish') titleTxt2.text = "Iniciando";
+
+		if (ClientPrefs.data.language == 'Inglish') titleTxt2.text = "Starting";
+
+		if (ClientPrefs.data.language == 'Portuguese') titleTxt2.text = "Iniciando";
+
+		add(titleTxt);
+		add(titleTxt2);
 
 		var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('logo'));
 		logo.antialiasing = ClientPrefs.data.antialiasing;
@@ -440,10 +447,24 @@ class TitleState extends MusicBeatState
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
-		if (initialized)
+		if (initialized) {
 			skipIntro();
-		else
+		} else {
 			initialized = true;
+		}
+
+		if (!ClientPrefs.data.noneAnimations) {
+			FadeTimer = new FlxTimer();
+			FadeTimer.start(0.8, onAlpha, 0);
+		}
+
+		if (!ClientPrefs.data.noneAnimations) {
+			TextTime = new FlxTimer();
+			TextTime.start(4, onText, 0);
+		}
+		if (ClientPrefs.data.noneAnimations) {
+			titleTxt.alpha = 1;
+		}
 
 		// credGroup.add(credTextShit);
 	}
@@ -533,8 +554,8 @@ class TitleState extends MusicBeatState
 				transitioning = true;
 
 				FlxG.cameras.fade(FlxColor.BLACK, ClientPrefs.data.timetrans + 2, false);
-				//FlxTween.tween(titleTxt2, {alpha: 0}, ClientPrefs.data.timetrans + 3);
-				//FlxFlicker.flicker(titleTxt2, ClientPrefs.data.timetrans + 3, 0.2, true, true);
+				FlxTween.tween(titleTxt2, {alpha: 0}, ClientPrefs.data.timetrans + 3);
+				FlxFlicker.flicker(titleTxt2, ClientPrefs.data.timetrans + 3, 0.2, true, true);
 				if (FlxG.sound.music != null) FlxG.sound.music.fadeOut(ClientPrefs.data.timetrans, 1);
 				FlxTween.tween(logoBl, {alpha: 0}, ClientPrefs.data.timetrans + 2, {
 					onComplete: function (twn:FlxTween) {
