@@ -73,10 +73,6 @@ class MEMORY extends TextField
 		currentTime += deltaTime;
 		times.push(currentTime);
 
-        if(FlxG.mouse.justPressed || FlxG.mouse.justPressedRight || FlxG.mouse.justPressedMiddle) {
-			FlxG.sound.play(Paths.sound('click'), 1);
-        }
-
 		if (PlayState.stageUI == "pixel") {
 			defaultTextFormat = new TextFormat("pixel.otf", 8);
 		}

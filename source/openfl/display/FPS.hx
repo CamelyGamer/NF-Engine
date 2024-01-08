@@ -76,8 +76,8 @@ class FPS extends TextField
 
 		var state:String = FlxG.state.toString();
 
-		if (keyMode != -1 && PlayState.statusGame == false) {
-			FlxG.sound.play(Paths.sound('key'), 0.3);
+		if (mouse.visible == true) {
+			mouse.visible == false;
 		}
 
 		if (PlayState.stageUI == "pixel") {

@@ -131,6 +131,8 @@ class TitleState extends MusicBeatState
 	var titleJSON:TitleData;
 	var Bit:Bool;
 
+	public static var bpm:Float = 0;
+
 	var indexCurret:Int = 0;
 
 	public static var updateVersion:String = '';
@@ -185,103 +187,48 @@ class TitleState extends MusicBeatState
 
 		ClientPrefs.loadPrefs();
 
-		#if desktop
-		if (ClientPrefs.data.Welcome == true) {
-			trace('cheking for release video');
-			var htss = new haxe.Http("https://raw.githubusercontent.com/ThonnyDevYT/FNFVersion/main/Link_video.txt");
+		#if CHECK_FOR_UPDATES
+		if(ClientPrefs.data.checkForUpdates && !closedState) {
+			//trace('checking for update');
+			var http = new haxe.Http("https://raw.githubusercontent.com/ThonnyDevYT/FNFVersion/main/AndroidVersion.txt");
 
-			htss.onData = function (data:String)
-				{
-					releasevideolink = data.split("*")[0].trim();
-					trace("Video Saved: [" + releasevideolink + "]");
-				}
-
-				htss.onError = function (error) {
-					trace('error: $error');
-					trace('Release Video. Cargara el Guardado en El juego');
-					releasevideolink = "https://www.youtube.com/watch?v=M67O8wIE-2U";
-				}
-
-				htss.request();
-		}
-
-		if (ClientPrefs.data.Welcome) {
-			trace('cheking for Path Version');
-			var hpss = new haxe.Http("https://raw.githubusercontent.com/ThonnyDevYT/FNFVersion/main/pathVersion.txt");
-
-			hpss.onData = function (data:String)
-				{
-					pathVersionOnline = data.split("*")[0].trim();
-					trace("Path Version: [" + pathVersionOnline + "]");
-
-					if (pathVersionOnline != MainMenuState.pathVersion) {
-						pathVersionOnlineM = true;
-					}
-				}
-
-				hpss.onError = function (error) {
-					trace('error: $error');
-					trace('Paths Version Error. No cargara la desactualizacion');
-					pathVersionOnlineM = false;
-				}
-
-				hpss.request();
-		}
-
-		if (ClientPrefs.data.Welcome == true) {
-			trace('cheking for editors permiss');
-			var htsp = new haxe.Http("https://raw.githubusercontent.com/ThonnyDevYT/FNFVersion/main/Editor-Permiss.txt");
-
-			htsp.onData = function (data:String)
-				{
-					editorpermiss = data.split("!")[0].trim();
-					var curVerificator:String = editorverification.trim();
-					trace('Editor Permiss Online is in  [' + editorpermiss + "]");
-					if (editorpermiss != curVerificator) {
-						trace('enabled!!');
-						editorresult = true;
-					}
-					if (editorpermiss == curVerificator) {
-						trace('disabled!!');
-						editorresult = false;
-					}
-				}
-
-				htsp.onError = function (error) {
-					trace('error: $error');
-					trace('Editor Permiss. Desabilitado por seguridad');
-					editorresult = false;
-				}
-
-				htsp.request();
-		}
-
-		if(ClientPrefs.data.Welcome == true) {
-			trace('checking for update');
-			var htps = new haxe.Http("https://raw.githubusercontent.com/ThonnyDevYT/FNFVersion/main/GitVersion.txt");
-
-			htps.onData = function (data:String)
+			http.onData = function (data:String)
 			{
-				updateVersionEC = data.split('\n')[0].trim();
-				var curVersionEC:String = MainMenuState.endingcorruptionVersion.trim();
-				trace('version online: ' + updateVersionEC + ', your version: ' + curVersionEC);
-				if(updateVersionEC != curVersionEC) {
-					trace('versions arebt matching!');
-					UpdateEC = true;
+				updateVersion = data.split('\n')[0].trim();
+				var curVersion:String = ClientPrefs.data.endingCorruption;
+				
+				if(updateVersion != curVersion) {
+					ClientPrefs.data.oudate = true;
+					ClientPrefs.data.saveSettings();
+					ClientPrefs.data.loadPrefs();
+				}
+				if (updateVersion == curVersion) {
+					ClientPrefs.data.oudate = false;
+					ClientPrefs.data.saveSettings();
+					ClientPrefs.data.loadPrefs();
 				}
 			}
 
-			htps.onError = function (error) {
+			http.onError = function (error) {
 				trace('error: $error');
+				ClientPrefs.data.oudate = false;
+				ClientPrefs.data.saveSettings();
+				ClientPrefs.data.loadPrefs();
 			}
 
-			htps.request();
+			http.request();
 		}
 		#end
 
 		Highscore.load();
 
-		if(ClientPrefs.data.Welcome == false) MusicBeatState.switchState(new PreloadingState());
+		//if(ClientPrefs.data.Welcome == false) MusicBeatState.switchState(new PreloadingState());
+
+		if (ClientPrefs.data.Welcome == false) {
+			ClientPrefs.data.Welcome = true;
+			ClientPrefs.saveSettings();
+			ClientPrefs.loadPrefs();
+		}
 
 		if(!initialized)
 		{
@@ -315,6 +262,8 @@ class TitleState extends MusicBeatState
 				});
 			}
 		#end
+
+		bpm = titleJSON.bpm;
 	}
 
 	var logoBl:FlxSprite;
@@ -325,6 +274,8 @@ class TitleState extends MusicBeatState
 
 	function startIntro()
 	{
+
+		Conductor.bpm = titleJSON.bpm;
 		if (!initialized)
 		{
 			if(FlxG.sound.music == null) {
@@ -369,15 +320,15 @@ class TitleState extends MusicBeatState
 
 		if (ClientPrefs.data.language == 'Spanish') {
 			titleTxt = new FlxText(0, 650, FlxG.width, 48);
-			textShow = "Presiona 'Enter' para Continuar";
+			textShow = "Presiona la pantalla para continuar".toLowerCase();
 		}
 		if (ClientPrefs.data.language == 'Inglish') {
 			titleTxt = new FlxText(0, 650, FlxG.width, 48);
-			textShow = "Press 'Enter' to Continue";
+			textShow = "Press the screen to continue".toLowerCase();
 		}
 		if (ClientPrefs.data.language == 'Portuguese') {
 			titleTxt = new FlxText(0, 650, FlxG.width, 48);
-			textShow = "Pressione 'Enter' para Continuar";
+			textShow = "Pressione a tela para continuar".toLowerCase();
 		}
 		titleTxt.setFormat(Paths.font("vnd.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		titleTxt.visible = true;
@@ -493,10 +444,6 @@ class TitleState extends MusicBeatState
 
 		trace('Total Memory: ' + System.totalMemory + " bytes");
 
-		if (System.totalMemory < 2000000) {
-			MusicBeatState.notiWindows("Tu Dispositivo no cumple con los requisitos limite. tu memoria no es superior a 2GBs", "Incompatible");
-		}
-
 			errorTimer = new FlxTimer();
 	}
 
@@ -529,7 +476,6 @@ class TitleState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		if (FlxG.keys.justPressed.Y) {
-			MusicBeatState.notiWindows("No encontramos el archivo [ttRead.dll] porfavor contacte a soporte tecnico", "ERR:20T");
 			FlxG.sound.play(Paths.sound('confirmMenu'));
 			openSubState(new options.PluginSubState());
 		}
@@ -539,7 +485,6 @@ class TitleState extends MusicBeatState
 
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
 
-		if (!ClientPrefs.data.noneFixeds) {
 		#if mobile
 		for (touch in FlxG.touches.list)
 		{
@@ -553,7 +498,7 @@ class TitleState extends MusicBeatState
 		if (FlxG.mouse.justPressed || FlxG.mouse.justPressedMiddle) {
 			pressedEnter = true;
 		}
-
+		if (!ClientPrefs.data.noneFixeds) {
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
 		if (!ClientPrefs.data.noneFixeds) {
@@ -676,7 +621,7 @@ class TitleState extends MusicBeatState
 				case 7:
 					addMoreText('Corruption');
 				case 8:
-					addMoreText(MainMenuState.endingcorruptionVersion, 0, FlxColor.RED);
+					addMoreText(ClientPrefs.data.endingCorruprion, 0, FlxColor.RED);
 				case 9:
 					deleteCoolText();
 				case 10:
