@@ -126,6 +126,8 @@ class FreeplayState extends MusicBeatState
 		add(bg);
 		bg.screenCenter();
 
+		//Bg
+
 		bgSprite = new FlxSprite(0, 0);
 		bgSprite.screenCenter();
 		add(bgSprite);
