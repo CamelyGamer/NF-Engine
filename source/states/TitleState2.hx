@@ -143,7 +143,7 @@ class TitleState extends MusicBeatState
 			http.onData = function (data:String)
 			{
 				updateVersion = data.split('\n')[0].trim();
-				var curVersion:String = ClientPrefs.data.endingCorruption;
+				var curVersion:String = ClientPrefs.data.endingCorruprion;
 				
 				if(updateVersion != curVersion) {
 					ClientPrefs.data.oudate = true;
