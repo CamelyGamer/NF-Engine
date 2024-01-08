@@ -1,22 +1,24 @@
 {
 	"songs": [
-		["Satin Panties", "mom", [252, 150, 215]],
-		["High", "mom", [252, 150, 215]],
-		["Milf", "mom", [252, 150, 215]]
+		["Corrupted past", "sempai", [146, 113, 253]],
+		["Misguided concern", "sempai", [146, 113, 253]],
+		["Lethal code", "sempai", [146, 113, 253]],
+		["Forgetful formatting", "sempai", [146, 113, 253]]	
 	],
-	
+
 	"weekCharacters": [
-		"mom",
+		"sempai",
 		"bf",
 		"gf"
 	],
-	"weekBackground": "limo",
+	"weekBackground": "school",
 
-	"storyName": "MOMMY MUST MURDER",
-	"weekBefore": "week3",
-	"weekName": "Week 4",
+	"storyName": "< VS SEMPAI >",
+	"weekBefore": "day 4",
+	"weekName": "week4",
 	"startUnlocked": true,
 
 	"hideStoryMode": false,
-	"hideFreeplay": false
+	"hideFreeplay": false,
+	"bG": "school"
 }

@@ -113,7 +113,7 @@ class MainMenuState extends MusicBeatState
 	public static var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
-	public static var selectedSomethin:Bool;
+	public static var selectedSomethin:Bool = false;
 
 	var selectorLeft:Alphabet;
 	var selectorRight:Alphabet;
@@ -121,7 +121,7 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
-		'statistics',
+		//'statistics',
 		'links'
 	];
 
@@ -273,10 +273,10 @@ class MainMenuState extends MusicBeatState
 		settingIcon.alpha = 1;
 		//add(settingIcon);
 
-		settingButton = new FlxButton(FlxG.width - 100, 0, "", onClickSetting);
+		settingButton = new FlxButton(0, FlxG.height - 150, "", onClickSetting);
 		settingButton.loadGraphicFromSprite(settingIcon);
 		settingButton.scrollFactor.set();
-		settingButton.screenCenter(Y);
+		settingButton.screenCenter(X);
 
 		videoButton = new FlxButton(FlxG.width - 105, FlxG.height - 250, "", onClickVideo);
 		videoButton.loadGraphicFromSprite(videoIcon);

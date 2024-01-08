@@ -115,10 +115,7 @@ class TitleState extends MusicBeatState
 	}
 
 	function onGenerate(Timer:FlxTimer):Void {
-        if (indexCurret < textShow.length) {
-            titleTxt.text += textShow.charAt(indexCurret);
-            indexCurret++;
-        }
+		titleTxt.text = textShow;
     }
     
 	override public function create():Void

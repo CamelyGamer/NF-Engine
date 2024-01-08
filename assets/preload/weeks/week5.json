@@ -1,22 +1,21 @@
 {
 	"songs": [
-		["Cocoa", "parents", [160, 209, 255]],
-		["Eggnog", "parents", [160, 209, 255]],
-		["Winter Horrorland", "monster", [160, 209, 255]]
+		["Beckoning", "pico", [146, 113, 253]]
 	],
 
 	"weekCharacters": [
-		"parents-christmas",
+		"pico",
 		"bf",
 		"gf"
 	],
-	"weekBackground": "christmas",
+	"weekBackground": "philly_dark",
 
-	"storyName": "RED SNOW",
-	"weekBefore": "week4",
-	"weekName": "Week 5",
+	"storyName": "< VS PICO DARK >",
+	"weekBefore": "day 4",
+	"weekName": "week5",
 	"startUnlocked": true,
 
 	"hideStoryMode": false,
-	"hideFreeplay": false
+	"hideFreeplay": false,
+	"bG": "philly_dark"
 }

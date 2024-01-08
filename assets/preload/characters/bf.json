@@ -2,17 +2,6 @@
 	"animations": [
 		{
 			"offsets": [
-				-5,
-				0
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "idle",
-			"indices": [],
-			"name": "BF idle dance"
-		},
-		{
-			"offsets": [
 				5,
 				-6
 			],
@@ -57,8 +46,8 @@
 		},
 		{
 			"offsets": [
-				7,
-				19
+				-33,
+				-21
 			],
 			"loop": false,
 			"fps": 24,
@@ -68,8 +57,8 @@
 		},
 		{
 			"offsets": [
-				-15,
-				-19
+				-55,
+				-59
 			],
 			"loop": false,
 			"fps": 24,
@@ -79,8 +68,8 @@
 		},
 		{
 			"offsets": [
-				-46,
-				27
+				-76,
+				7
 			],
 			"loop": false,
 			"fps": 24,
@@ -90,8 +79,8 @@
 		},
 		{
 			"offsets": [
-				-44,
-				22
+				-74,
+				-18
 			],
 			"loop": false,
 			"fps": 24,
@@ -112,19 +101,8 @@
 		},
 		{
 			"offsets": [
-				14,
-				18
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "hurt",
-			"indices": [],
-			"name": "BF hit"
-		},
-		{
-			"offsets": [
-				-4,
-				0
+				-24,
+				20
 			],
 			"loop": true,
 			"fps": 24,
@@ -133,37 +111,37 @@
 			"name": "BF idle shaking"
 		},
 		{
+			"loop": true,
+			"offsets": [
+				-2,
+				-1
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "BF idle dance",
+			"indices": []
+		},
+		{
+			"loop": false,
 			"offsets": [
 				-10,
-				-16
+				6
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "dodge",
-			"indices": [],
-			"name": "boyfriend dodge"
+			"fps": 24,
+			"name": "BF Dead confirm",
+			"indices": []
 		},
 		{
+			"loop": true,
 			"offsets": [
-				294,
-				267
+				-32,
+				15
 			],
-			"loop": false,
+			"anim": "hurt",
 			"fps": 24,
-			"anim": "attack",
-			"indices": [],
-			"name": "boyfriend attack"
-		},
-		{
-			"offsets": [
-				-40,
-				-40
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "pre-attack",
-			"indices": [],
-			"name": "bf pre attack"
+			"name": "BF idle shaking",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
@@ -175,9 +153,9 @@
 	"healthicon": "bf",
 	"flip_x": true,
 	"healthbar_colors": [
-		49,
-		176,
-		209
+		120,
+		0,
+		155
 	],
 	"camera_position": [
 		0,

@@ -139,6 +139,10 @@ class LinksState extends MusicBeatState
 		time = new FlxTimer();
 		time.start(12, onAlpha, 0);
 
+		#if android
+		addVirtualPad(MainMenuState, A_B);
+		#end
+
 		super.create();
 	}
 

@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				34,
+				87
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "BF NOTE LEFT0"
+		},
+		{
+			"offsets": [
+				293,
+				21
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "BF NOTE DOWN0"
+		},
+		{
+			"offsets": [
+				151,
+				167
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "BF NOTE UP0"
+		},
+		{
+			"offsets": [
+				123,
+				104
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "BF NOTE RIGHT0"
+		},
+		{
+			"offsets": [
+				67,
+				90
+			],
+			"loop": true,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "BF idle dance"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/Pico-day-Deluxe",
+	"position": [
+		150,
+		350
+	],
+	"healthicon": "pico-day-deluxe",
+	"flip_x": true,
+	"healthbar_colors": [
+		101,
+		135,
+		1
+	],
+	"camera_position": [
+		-120,
+		-100
+	],
+	"sing_duration": 4.4,
+	"scale": 1
+}

@@ -1,22 +1,23 @@
 {
 	"songs": [
-		["Spookeez", "spooky", [34, 51, 68]],
-		["South", "spooky", [34, 51, 68]],
-		["Monster", "monster", [34, 51, 68]]
+		["Dark Shot", "mom", [146, 113, 253]],
+		["Moving Attack", "mom", [146, 113, 253]],
+		["Corrupt Mind", "mom", [146, 113, 253]]	
 	],
 
 	"weekCharacters": [
-		"spooky",
-		"bf",
+		"mom",
+		"pico",
 		"gf"
 	],
-	"weekBackground": "halloween",
+	"weekBackground": "limo",
 
-	"storyName": "Spooky Month",
-	"weekBefore": "week1",
-	"weekName": "Week 2",
+	"storyName": "< VS MOMMY >",
+	"weekBefore": "day 2",
+	"weekName": "week2",
 	"startUnlocked": true,
 
 	"hideStoryMode": false,
-	"hideFreeplay": false
+	"hideFreeplay": false,
+	"bG": "limo"
 }
