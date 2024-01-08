@@ -76,8 +76,8 @@ class FPS extends TextField
 
 		var state:String = FlxG.state.toString();
 
-		if (mouse.visible == true) {
-			mouse.visible == false;
+		if (FlxG.mouse.visible == true) {
+			FlxG.mouse.visible == false;
 		}
 
 		if (PlayState.stageUI == "pixel") {
