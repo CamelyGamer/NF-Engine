@@ -149,10 +149,7 @@ class MusicBeatState extends FlxUIState
 
 		super.create();
 
-		if(!skip) {
-			openSubState(new CustomFadeTransition(0.7, true));
-		}
-		FlxTransitionableState.skipNextTransOut = false;
+		FlxG.cameras.fade(FlxColor.BLACK, 1, true);
 		timePassedOnState = 0;
 		
 		
@@ -257,9 +254,7 @@ class MusicBeatState extends FlxUIState
 			return;
 		}
 
-		if(FlxTransitionableState.skipNextTransIn) FlxG.switchState(nextState);
-		else startTransition(nextState);
-		FlxTransitionableState.skipNextTransIn = false;
+		FlxG.cameras.fade(FlxColor.BLACK, 1, false, FlxG.switchState(nextState), true);
 	}
 
 	public static function resetState() {
