@@ -21,21 +21,6 @@ class InitialSettings extends BaseOptionsMenu
                 ['Spanish', 'Inglish', 'Portuguese'/*, 'Mandarin'*/]); //Variable type
             addOption(option);
             ClientPrefs.loadPrefs();
-    
-            var option:Option = new Option('Fullscreen',
-                'Disable this if recording as this interrupts.',
-                'fullyscreen',
-                'bool');
-            addOption(option);
-            ClientPrefs.loadPrefs();
-
-            var option:Option = new Option('Window Opacity:',
-            'Change the opacity of the window to your liking. \nDoes not work with full screen',
-            'windowOpacity',
-            'float');
-            option.maxValue = 1;
-            option.minValue = 0.1;
-            addOption(option);
 
 
             var option:Option = new Option('sprites per second',
@@ -48,23 +33,6 @@ class InitialSettings extends BaseOptionsMenu
             option.maxValue = ClientPrefs.data.framerate;
             option.changeValue = 1;
             option.displayFormat = '%v Frames';
-            
-            #if !DEMO_MODE
-            var option:Option = new Option('Update Support',
-                "Add a support to the game so that it updates itself.\nThis function is disabled in your version",
-                'Update_Support',
-                'bool');
-            addOption(option);
-            ClientPrefs.loadPrefs();
-    
-            var option:Option = new Option('Internet Data',
-                'Using the Internet\nthis is used to download and install update files or profiles.\n!This function is disabled in your version!',
-                'Internet',
-                'string',
-                [/*'Always','Only in Menus','Only in Matches',*/'Disabled']);
-            addOption(option);
-            #end
-            ClientPrefs.loadPrefs();
 
             var option:Option = new Option('Recording Optimization',
             'Optimize all game fragments so that the recorder does not stop due to errors',

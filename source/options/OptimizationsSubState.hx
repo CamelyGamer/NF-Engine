@@ -33,18 +33,6 @@ class OptimizationsSubState extends BaseOptionsMenu {
             "bool");
             addOption(option);
 
-            var option:Option = new Option("Eliminar actualizacion de States",
-            "Elimina la actualizacion del titulo del juego dependiendo de tus ajustes",
-            "updateState",
-            "bool");
-            addOption(option);
-
-            var option:Option = new Option("Eliminar Conexiones",
-            "Elimina cualquier conexion de internet o alguna otra conexion\n!!Este Ajuste puede dar errores en algunos Luagares!!",
-            "noneNet",
-            "bool");
-            addOption(option);
-
             var option:Option = new Option("Eliminar PreCargas",
             "Elima cualquier PreCarga de Sprites o algun sonido\nEste puede tener un resultado diferente en otros Dispositivos",
             "nonePost",

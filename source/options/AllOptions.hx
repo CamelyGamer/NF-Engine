@@ -56,40 +56,6 @@ class AllOptions extends BaseOptionsMenu {
             'bool');
             addOption(option);
 
-            var option:Option = new Option('FullScreen:',
-			'Change the game display to Full Screen.\n!Need Restart!',
-			'fullyscreen',
-			'bool');
-		    addOption(option);
-
-            var option:Option = new Option('Width Windows',
-            "Sets the Initial 'Width'\n!Needs Reset!",
-            'width',
-            'int');
-            option.minValue = 1024;
-            option.maxValue = 3840;
-            option.scrollSpeed = 100;
-            option.displayFormat = '%v px';
-        addOption(option);
-    
-        var option:Option = new Option('Height Windows',
-            "Sets the Initial 'Height'\n!Needs Reset!",
-            'height',
-            'int');
-            option.minValue = 600;
-            option.maxValue = 2160;
-            option.scrollSpeed = 100;
-            option.displayFormat = '%v px';
-        addOption(option);
-
-            var option:Option = new Option('Window Opacity:',
-            'Change the opacity of the window to your liking. \nDoes not work with full screen',
-            'windowOpacity',
-            'float');
-            option.maxValue = 1;
-            option.minValue = 0.1;
-            addOption(option);
-
             var option:Option = new Option('Language',
             'Game language type only in texts and some images.',
             'language',
@@ -165,41 +131,6 @@ class AllOptions extends BaseOptionsMenu {
 		'bool');
 		addOption(option);
 
-        
-		var option:Option = new Option('Width Windows',
-        "Establece el 'Width' Inicial\n!¡Necesita Reinicio¡!",
-        'width',
-        'int');
-        option.minValue = 1024;
-        option.maxValue = 3840;
-        option.scrollSpeed = 100;
-        option.displayFormat = '%v px';
-    addOption(option);
-
-    var option:Option = new Option('Height Windows',
-        "Establece el 'Height' Inicial\n!¡Necesita Reinicio¡!",
-        'height',
-        'int');
-        option.minValue = 600;
-        option.maxValue = 2160;
-        option.scrollSpeed = 100;
-        option.displayFormat = '%v px';
-    addOption(option);
-
-    var option:Option = new Option('Pantalla completa:',
-        'Cambia la visualización del juego a Pantalla completa.\n!¡Necesita reiniciar!',
-        'fullyscreen',
-        'bool');
-    addOption(option);
-
-    var option:Option = new Option('Opacidad de Ventana:',
-    'Cambia la opacidad de la ventana a tu gusto \nNo funciona en pantalla Completa',
-    'windowOpacity',
-    'float');
-    option.maxValue = 1;
-    option.minValue = 0.1;
-    option.changeValue = 0.1;
-    addOption(option);
 
     var option:Option = new Option('Idioma',
     'Tipo de idioma del juego solo en textos y algunas imágenes.',

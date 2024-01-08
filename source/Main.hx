@@ -126,7 +126,8 @@ class Main extends Sprite
     	    watermark = new Watermark(
     	    5,
     	    Lib.current.stage.stageHeight - 5,
-    	    0.4);	    
+    	    0.4);
+			watermark.visible = false;	    
     		addChild(watermark);
     		//watermark.x -= watermark.bitmapData.width;
     		watermark.y -= watermark.bitmapData.height;

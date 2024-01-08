@@ -182,6 +182,9 @@ class SaveVariables {
 	
 		//Others
 		public var coins:Int = 0;
+
+		//Android
+		public var oudate:Bool = false;
      
 	public function new()
 	{
