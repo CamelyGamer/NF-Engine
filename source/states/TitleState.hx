@@ -211,7 +211,7 @@ class TitleState extends MusicBeatState
 		}
 
 		//FlxG.mouse.visible = true;
-		//FlxG.mouse.load(Paths.image('menuExtend/cursor').bitmap,1,0,0);
+		//FlxG.mouse.load(Paths.image('menuExtend/cursor').bitmap,1,0,0); 828
 		
         
         
@@ -798,7 +798,7 @@ class TitleState extends MusicBeatState
 			skippedIntro = true;
 		}
 	}
-	var video:VideoSprite;
+	//var video:VideoSprite;
 	function startVideo(name:String)
 	{
 	    skipVideo = new FlxText(0, FlxG.height - 26, 0, "Press " + #if android "Back on your phone " #else "Enter " #end + "to skip", 18);
@@ -825,7 +825,7 @@ class TitleState extends MusicBeatState
 		}
         
         
-		var video:VideoSprite = new VideoSprite(0, 0, 1280, 720);
+		 /*var video:VideoSprite = new VideoSprite(0, 0, 1280, 720);
 			video.playVideo(filepath);
 			add(video);
 			video.updateHitbox();
@@ -833,7 +833,7 @@ class TitleState extends MusicBeatState
 			{
 				videoEnd();
 				return;
-			}
+			}*/
 		showText();	
 		#else
 		FlxG.log.warn('Platform not supported!');
