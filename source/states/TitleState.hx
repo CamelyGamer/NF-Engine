@@ -13,6 +13,8 @@ import flixel.input.gamepad.FlxGamepad;
 import tjson.TJSON as Json;
 import lime.system.System;
 
+import flixel.effects.FlxFlicker;
+
 import openfl.Assets;
 import openfl.Lib;
 import openfl.display.Bitmap;
