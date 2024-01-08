@@ -101,11 +101,11 @@ class TitleState extends MusicBeatState
 		
 		//https://github.com/beihu235/AndroidDialogs
 		
-		if (ClientPrefs.data.language == 'Inglish') lang = 'Welcome to Ending Corruption Android\nVersion: ' + ClientPrefs.data.endingCorruprion;
+		if (ClientPrefs.data.language == 'Inglish') lang = 'Welcome to Ending Corruption Android\nVersion: ' + ClientPrefs.data.endingCorruprion + 'Android';
 
-		if (ClientPrefs.data.language == 'Spanish') lang = 'Bienvenido a Ending Corruption Android\nVersion: ' + ClientPrefs.data.endingCorruprion;
+		if (ClientPrefs.data.language == 'Spanish') lang = 'Bienvenido a Ending Corruption Android\nVersion: ' + ClientPrefs.data.endingCorruprion + 'Android';
 
-		if (ClientPrefs.data.language == 'Portuguese') lang = 'Bem-vindo ao Acabando com a Corrupção Android\nVersão: ' + ClientPrefs.data.endingCorruprion;
+		if (ClientPrefs.data.language == 'Portuguese') lang = 'Bem-vindo ao Acabando com a Corrupção Android\nVersão: ' + ClientPrefs.data.endingCorruprion + 'Android';
 			
 		if(!checkOpenFirst){
 										
