@@ -125,7 +125,7 @@ class SaveVariables {
 	public var languageNum:Int = 0; //for english at begin
 
 		//System Versions
-		public var endingCorruprion:String = '2.0';
+		public var endingcorruption:String = '2.0';
 		public var endingEngine:String = '2.3';
 		public var pathVersion:String = '1.0';
 		public var username:String = 'User';
