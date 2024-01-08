@@ -14,6 +14,8 @@ class EstadisticsMenuState extends MusicBeatState {
     var note:String = '\n\n\n\n\n\n\n\n\n\n\n\n\n\n';
     var Notetext:FlxText;
 
+    var NullMode:String = 'NOT FOUND';
+
     override function create() {
         super.create();
 
@@ -24,7 +26,7 @@ class EstadisticsMenuState extends MusicBeatState {
 
         if (ClientPrefs.data.language == 'Spanish') {
         BaseText = new FlxText(0, 0, FlxG.width,
-           'Estadisticas: \n\nNotas Presionadas: ' + PlayState.hitnotesong + ' Notas\n\nNotas Falladas: ' + PlayState.missNotesong + ' Fallas\n\nMuertes: ' + PlayState.deaths + ' Muertes\n\nPuntaje Total: ' + PlayState.scoresTotal + ' Puntos\n\nPUNTOS: ' + PlayState.pointsWin + ' puntos',
+           'Estadisticas: \n\nNotas Presionadas: ' + NullMode + ' Notas\n\nNotas Falladas: ' + NullMode + ' Fallas\n\nMuertes: ' + NullMode + ' Muertes\n\nPuntaje Total: ' + NullMode + ' Puntos\n\nPUNTOS: ' + NullMode + ' puntos',
             32);
         Notetext = new FlxText(0, 0, FlxG.width,
             note + '!!ESTAS ESTADISTICAS SON TEMPORABLES!!\nLAS ESTADISTICAS SE REINICIAN AL SALIR',
@@ -32,12 +34,12 @@ class EstadisticsMenuState extends MusicBeatState {
         }
         if (ClientPrefs.data.language == 'Inglish') {
             BaseText = new FlxText(0, 0, FlxG.width,
-           'Statistics: \n\nPressed Notes: ' + PlayState.hitnotesong + ' Notes\n\nFailed Notes: ' + PlayState.missNotesong + ' Misses\n\nDeaths: ' + PlayState.deaths + ' deaths\n\nTotal score: ' + PlayState.scoresTotal + ' Points',
+           'Statistics: \n\nPressed Notes: ' + NullMode + ' Notes\n\nFailed Notes: ' + NullMode + ' Misses\n\nDeaths: ' + NullMode + ' deaths\n\nTotal score: ' + NullMode + ' Points',
             32);
         }
         if (ClientPrefs.data.language == 'Portuguese') {
             BaseText = new FlxText(0, 0, FlxG.width,
-           'Estatisticas: \n\nNotas pressionadas: ' + PlayState.hitnotesong + ' Notas\n\nNotas com falha: ' + PlayState.missNotesong + ' Falhas\n\nMortes: ' + PlayState.deaths + ' Mortes\n\nPontuação total: ' + PlayState.scoresTotal + ' Pontos',
+           'Estatisticas: \n\nNotas pressionadas: ' + NullMode + ' Notas\n\nNotas com falha: ' + NullMode + ' Falhas\n\nMortes: ' + NullMode + ' Mortes\n\nPontuação total: ' + NullMode + ' Pontos',
             32);
         }
         BaseText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, OUTLINE_FAST, FlxColor.BLACK);

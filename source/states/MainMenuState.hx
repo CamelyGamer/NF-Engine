@@ -12,7 +12,6 @@ import flixel.ui.FlxButton;
 import backend.WeekData;
 import backend.Achievements;
 import openfl.utils.Timer;
-import flixel.addons.effects.chainable.FlxGlitchEffect;
 import flixel.util.FlxTimer;
 
 import haxe.Http;
@@ -54,7 +53,9 @@ class MainMenuState extends MusicBeatState
 	public static var endingFloat:Float = 2.0;
 	public static var engineFloat:Float = 2.3;
 
-	public var glitch:FlxGlitchEffect;
+	public static var bpm:Float = 0;
+
+	public static var Mainbpm:Float = 0;
 
 	var tipkey:FlxText;
 	var tipvideo:FlxText;
@@ -272,13 +273,15 @@ class MainMenuState extends MusicBeatState
 		settingIcon.alpha = 1;
 		//add(settingIcon);
 
-		settingButton = new FlxButton(FlxG.width - 100, FlxG.height - 150, "", onClickSetting);
+		settingButton = new FlxButton(FlxG.width - 100, 0, "", onClickSetting);
 		settingButton.loadGraphicFromSprite(settingIcon);
 		settingButton.scrollFactor.set();
+		settingButton.screenCenter(Y);
 
 		videoButton = new FlxButton(FlxG.width - 105, FlxG.height - 250, "", onClickVideo);
 		videoButton.loadGraphicFromSprite(videoIcon);
 		videoButton.scrollFactor.set();
+		videoButton.visible = false;
 
 		var scale:Float = 1;
 
@@ -400,7 +403,7 @@ class MainMenuState extends MusicBeatState
 
 	public function onClickVideo() {
 		FlxG.sound.play(Paths.sound('confirmMenu'));
-		CoolUtil.browserLoad(TitleState.releasevideolink);
+		CoolUtil.browserLoad('');
 	}
 
 	function onGenerate(Timer:FlxTimer):Void {
@@ -478,7 +481,7 @@ class MainMenuState extends MusicBeatState
 				}
 			}
 
-			if (controls.BACK || FlxG.android.justPressed.BACK || MusicBeatState._virtualpad.buttonB)
+			if (controls.BACK || FlxG.android.justPressed.BACK == true)
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				FlxG.camera.flash(ClientPrefs.data.flashing ? FlxColor.RED : 0x4CFF0000, 1);
@@ -498,7 +501,7 @@ class MainMenuState extends MusicBeatState
 			}
 
 		if (Nit == true) {
-			if (controls.ACCEPT || MusicBeatState._virtualpad.buttonA)
+			if (controls.ACCEPT || MusicBeatState._virtualpad.buttonA == true)
 			{
 				if (optionShit[curSelected] == 'donate')
 				{

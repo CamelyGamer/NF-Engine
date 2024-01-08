@@ -254,7 +254,7 @@ class MusicBeatState extends FlxUIState
 			return;
 		}
 
-		FlxG.cameras.fade(FlxColor.BLACK, 1, false, FlxG.switchState(nextState), true);
+		FlxG.cameras.fade(FlxColor.BLACK, 1, false, function() FlxG.switchState(nextState), true);
 	}
 
 	public static function resetState() {
