@@ -93,7 +93,6 @@ class TitleState extends MusicBeatState
 	var phantomSr:FlxSprite;
 
 	var saturated:ColorSwap;
-	var complit:GlitchEffect;
 
 	var titleTxt:FlxText;
 	var titleTxt2:FlxText;
@@ -132,7 +131,6 @@ class TitleState extends MusicBeatState
 	var titleJSON:TitleData;
 	var Bit:Bool;
 
-		
 	public static var bpm:Float = 0;
 
 	var indexCurret:Int = 0;
@@ -143,7 +141,7 @@ class TitleState extends MusicBeatState
 	public static var editorpermiss:String = '';
 	public static var releasevideolink:String = '';
 	public static var pathVersionOnline:String = '';
-	public static var pathVersionOnlineM:Bool = false;
+	public static var pathVersionOnlineM:Bool = true;
 
 //	public var BitLogo:FlxTimer;
 
@@ -189,24 +187,48 @@ class TitleState extends MusicBeatState
 
 		ClientPrefs.loadPrefs();
 
+		#if CHECK_FOR_UPDATES
+		if(ClientPrefs.data.checkForUpdates && !closedState) {
+			//trace('checking for update');
+			var http = new haxe.Http("https://raw.githubusercontent.com/ThonnyDevYT/FNFVersion/main/AndroidVersion.txt");
+
+			http.onData = function (data:String)
+			{
+				updateVersion = data.split('\n')[0].trim();
+				var curVersion:String = ClientPrefs.data.endingCorruption;
+				
+				if(updateVersion != curVersion) {
+					ClientPrefs.data.oudate = true;
+					ClientPrefs.data.saveSettings();
+					ClientPrefs.data.loadPrefs();
+				}
+				if (updateVersion == curVersion) {
+					ClientPrefs.data.oudate = false;
+					ClientPrefs.data.saveSettings();
+					ClientPrefs.data.loadPrefs();
+				}
+			}
+
+			http.onError = function (error) {
+				trace('error: $error');
+				ClientPrefs.data.oudate = false;
+				ClientPrefs.data.saveSettings();
+				ClientPrefs.data.loadPrefs();
+			}
+
+			http.request();
+		}
+		#end
+
 		Highscore.load();
 
-		if(ClientPrefs.data.Welcome == false) {
-			//MusicBeatState.switchState(new PreloadingState());
+		//if(ClientPrefs.data.Welcome == false) MusicBeatState.switchState(new PreloadingState());
+
+		if (ClientPrefs.data.Welcome == false) {
 			ClientPrefs.data.Welcome = true;
 			ClientPrefs.saveSettings();
+			ClientPrefs.loadPrefs();
 		}
-
-		if(ClientPrefs.data.Welcome == true && pathVersionOnlineM == true) {
-			//MusicBeatState.switchState(new UpdatingState());
-			//pathVersionOnlineM = false;
-		}
-
-		#if android
-		FlxG.android.preventDefaultKeys = [BACK];
-		removeVirtualPad();
-		noCheckPress();
-		#end
 
 		if(!initialized)
 		{
@@ -252,17 +274,14 @@ class TitleState extends MusicBeatState
 
 	function startIntro()
 	{
+
+		Conductor.bpm = titleJSON.bpm;
 		if (!initialized)
 		{
-
-			Conductor.bpm = titleJSON.bpm;
-
 			if(FlxG.sound.music == null) {
-				if (ClientPrefs.data.music == 'Disabled') FlxG.sound.playMusic(Paths.music('none'), 1.2);
-
-				if (ClientPrefs.data.music == 'Hallucination') FlxG.sound.playMusic(Paths.music('Hallucination'), 1.2);
-
-				if (ClientPrefs.data.music == 'TerminalMusic') FlxG.sound.playMusic(Paths.music('TerminalMusic'), 1.2);
+				if (ClientPrefs.data.musicState != 'disabled') {
+				FlxG.sound.playMusic(Paths.music('Hallucination'), 1.2);
+			}
 		}
 			if(Main.memoryVar != null && !ClientPrefs.data.noneAnimations) {
 				FlxTween.tween(Main.memoryVar, {x: 10}, 3);
@@ -279,12 +298,6 @@ class TitleState extends MusicBeatState
 			Main.memoryVar.visible = ClientPrefs.data.showFPS;
 			Main.fpsVar.visible = ClientPrefs.data.showFPS;
 			Main.coinVar.visible = ClientPrefs.data.showFPS;
-	}
-
-	if (ClientPrefs.data.username == 'User') {
-		ClientPrefs.data.username = 'User' + FlxG.random.int(0, 100) + FlxG.random.int(0, 100) + FlxG.random.int(0, 100);
-		ClientPrefs.saveSettings();
-		ClientPrefs.loadPrefs();
 	}
 
 		//Conductor.bpm = titleJSON.bpm;
@@ -333,6 +346,43 @@ class TitleState extends MusicBeatState
 
 		if (ClientPrefs.data.language == 'Portuguese') titleTxt2.text = "Iniciando";
 
+		var clientSettings:String = ClientPrefs.data.graphics_internal;
+
+		if (clientSettings == 'Low') {
+			ClientPrefs.data.antialiasing = false;
+			ClientPrefs.data.lowQuality = true;
+			ClientPrefs.data.framerate = 60;
+			ClientPrefs.data.recordoptimization = "enabled";
+			ClientPrefs.data.shaders = false;
+			ClientPrefs.data.SpritesFPS = 16;
+			ClientPrefs.data.alphahud = true;
+		}
+		if (clientSettings == 'Medium') {
+			ClientPrefs.data.antialiasing = false;
+			ClientPrefs.data.lowQuality = true;
+			ClientPrefs.data.framerate = 75;
+			ClientPrefs.data.recordoptimization = "Disabled";
+			ClientPrefs.data.shaders = false;
+			ClientPrefs.data.SpritesFPS = 24;
+		}
+		if (clientSettings == 'High') {
+			ClientPrefs.data.antialiasing = true;
+			ClientPrefs.data.lowQuality = false;
+			ClientPrefs.data.framerate = 85;
+			ClientPrefs.data.recordoptimization = "Disabled";
+			ClientPrefs.data.shaders = true;
+			ClientPrefs.data.SpritesFPS = 24;
+		}
+		if (clientSettings == 'Ultra') {
+			ClientPrefs.data.antialiasing = true;
+			ClientPrefs.data.lowQuality = false;
+			ClientPrefs.data.framerate = 100;
+			ClientPrefs.data.recordoptimization = "Disabled";
+			ClientPrefs.data.shaders = true;
+			ClientPrefs.data.SpritesFPS = 32;
+			ClientPrefs.data.alphahud = true;
+		}
+
 		//add(gfDance);
 		add(logoBl);
 		add(titleTxt);
@@ -348,9 +398,6 @@ class TitleState extends MusicBeatState
 		logo.screenCenter();
 
 		new ColorSwap();
-
-		complit = new GlitchEffect();
-		complit.iTime.value = [200, 200, 200];
 
 		// FlxTween.tween(logoBl, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
 		// FlxTween.tween(logo, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG, startDelay: 0.1});
@@ -394,6 +441,8 @@ class TitleState extends MusicBeatState
 		if (ClientPrefs.data.noneAnimations) {
 			titleTxt.alpha = 1;
 		}
+
+		trace('Total Memory: ' + System.totalMemory + " bytes");
 
 			errorTimer = new FlxTimer();
 	}
@@ -449,7 +498,7 @@ class TitleState extends MusicBeatState
 		if (FlxG.mouse.justPressed || FlxG.mouse.justPressedMiddle) {
 			pressedEnter = true;
 		}
-
+		if (!ClientPrefs.data.noneFixeds) {
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
 		if (!ClientPrefs.data.noneFixeds) {
@@ -464,7 +513,7 @@ class TitleState extends MusicBeatState
 			#end
 		}
 	}
-
+}
 
 		if (initialized  && skippedIntro)
 		{
@@ -487,6 +536,9 @@ class TitleState extends MusicBeatState
 	
 							new FlxTimer().start(1, function(tmr:FlxTimer)
 								{
+				//					if (UpdateEC == true) {
+				//						MainMenuState.outdate = false;
+				//					}
 										MusicBeatState.switchState(new MainMenuState());
 										//MusicBeatState.switchState(new ActAvailableState());
 									closedState = true;
@@ -552,22 +604,27 @@ class TitleState extends MusicBeatState
 			switch (sickBeats)
 			{
 				case 1:
-				if (ClientPrefs.data.music == 'Disabled') FlxG.sound.playMusic(Paths.music('none'), 0);
-
-				if (ClientPrefs.data.music == 'Hallucination')	FlxG.sound.playMusic(Paths.music('Hallucination'), 0);
-
-				if (ClientPrefs.data.music == 'TerminalMusic') FlxG.sound.playMusic(Paths.music('TerminalMusic'), 0);
-				
+				if (ClientPrefs.data.musicState != 'disabled') {
+					FlxG.sound.playMusic(Paths.music('Hallucination'), 0);
+				}
 				if (ClientPrefs.data.musicState != 'disabled')	FlxG.sound.music.fadeIn(2, 0, 1.2);
 				case 2:
-					addMoreText('Ending');
+					addMoreText('Friday');
 				case 3:
-					addMoreText('Corruption');
+					addMoreText('Night');
 				case 4:
-					addMoreText(ClientPrefs.data.endingCorruprion, 0, FlxColor.RED);
+					addMoreText('Funkin');
 				case 5:
 					deleteCoolText();
 				case 6:
+					addMoreText('Ending');
+				case 7:
+					addMoreText('Corruption');
+				case 8:
+					addMoreText(ClientPrefs.data.endingCorruprion, 0, FlxColor.RED);
+				case 9:
+					deleteCoolText();
+				case 10:
 					FlxG.cameras.fade(FlxColor.BLACK, 0.4, true);
 					skipIntro();
 			}
