@@ -64,6 +64,8 @@ class TitleState extends MusicBeatState
 	var ngSpr:FlxSprite;
 	
 	var skipVideo:FlxText;
+
+	var textShow:String;
 	
 	var titleTextColors:Array<FlxColor> = [0xFF33FFFF, 0xFF3333CC];
 	var titleTextAlphas:Array<Float> = [1, .64];
@@ -88,6 +90,9 @@ class TitleState extends MusicBeatState
 
 	public static var updateVersion:String = '';
 	
+
+	var indexCurret:Int = 0;
+
 	public static var bpm:Float = 0;
     
     var lang:String = '';
@@ -98,6 +103,21 @@ class TitleState extends MusicBeatState
 				FlxTween.tween(logoBl, {"scale.x": 0.9, "scale.y": 0.9}, 0.1);
 		}});
 	}
+
+	public function onText(Timer:FlxTimer):Void {
+		FlxTween.tween(titleTxt, {alpha: 0}, 2, {
+			onComplete: function (twn:FlxTween) {
+				FlxTween.tween(titleTxt, {alpha: 1}, 2);
+			}
+		});
+	}
+
+	function onGenerate(Timer:FlxTimer):Void {
+        if (indexCurret < textShow.length) {
+            titleTxt.text += textShow.charAt(indexCurret);
+            indexCurret++;
+        }
+    }
     
 	override public function create():Void
 	{
@@ -273,7 +293,8 @@ class TitleState extends MusicBeatState
 	var logoBl:FlxSprite;
 	var gfDance:FlxSprite;
 	var danceLeft:Bool = false;
-	var titleText:FlxText;
+	var titleTxt:FlxText;
+	var titleTxt2:FlxText;
 	var swagShader:ColorSwap = null;
 
 	var FadeTimer:FlxTimer;
@@ -538,16 +559,16 @@ class TitleState extends MusicBeatState
 				
 				timer = FlxEase.quadInOut(timer);
 				
-				titleText.color = FlxColor.interpolate(titleTextColors[0], titleTextColors[1], timer);
-				titleText.alpha = FlxMath.lerp(titleTextAlphas[0], titleTextAlphas[1], timer);
+				//titleText.color = FlxColor.interpolate(titleTextColors[0], titleTextColors[1], timer);
+				//titleText.alpha = FlxMath.lerp(titleTextAlphas[0], titleTextAlphas[1], timer);
 			}
 			
 			if(pressedEnter)
 			{
-				titleText.color = FlxColor.WHITE;
-				titleText.alpha = 1;
+				//titleText.color = FlxColor.WHITE;
+				//titleText.alpha = 1;
 				
-				if(titleText != null) titleText.animation.play('press');
+				//if(titleText != null) titleText.animation.play('press');
 
 				FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 
