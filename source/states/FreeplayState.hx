@@ -530,7 +530,7 @@ class FreeplayState extends MusicBeatState
 						LoadingState.loadAndSwitchState(new PlayState());
 					}
 					if (songs[curSelected].songName == "Forgetful formatting" || songs[curSelected].songName == "Corrupted past" || songs[curSelected].songName == "Lethal code" || songs[curSelected].songName == "Misguided concern") {
-						LoadingState.pixel = true;
+						//LoadingState.pixel = true;
 						LoadingState.loadAndSwitchState(new PlayState());
 					}
 				}
@@ -540,7 +540,9 @@ class FreeplayState extends MusicBeatState
 					
 			destroyFreeplayVocals();
 			#if MODS_ALLOWED
-			DiscordClient.loadModRPC();
+				#if desktop
+					DiscordClient.loadModRPC();
+				#end
 			#end
 		}
 
