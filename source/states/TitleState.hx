@@ -533,8 +533,8 @@ class TitleState extends MusicBeatState
 				transitioning = true;
 
 				FlxG.cameras.fade(FlxColor.BLACK, ClientPrefs.data.timetrans + 2, false);
-				FlxTween.tween(titleTxt2, {alpha: 0}, ClientPrefs.data.timetrans + 3);
-				FlxFlicker.flicker(titleTxt2, ClientPrefs.data.timetrans + 3, 0.2, true, true);
+				//FlxTween.tween(titleTxt2, {alpha: 0}, ClientPrefs.data.timetrans + 3);
+				//FlxFlicker.flicker(titleTxt2, ClientPrefs.data.timetrans + 3, 0.2, true, true);
 				if (FlxG.sound.music != null) FlxG.sound.music.fadeOut(ClientPrefs.data.timetrans, 1);
 				FlxTween.tween(logoBl, {alpha: 0}, ClientPrefs.data.timetrans + 2, {
 					onComplete: function (twn:FlxTween) {
@@ -682,7 +682,7 @@ class TitleState extends MusicBeatState
 					case 3:
 						addMoreText('Corruption');
 					case 4:
-						addMoreText(ClientPrefs.data.endingCorruprion, 0, FlxColor.RED);
+						addMoreText(ClientPrefs.data.endingcorruption);
 					case 5:
 						deleteCoolText();
 					case 6:
@@ -755,9 +755,8 @@ class TitleState extends MusicBeatState
 			else //Default! Edit this one!!
 			{
 				FlxG.cameras.flash(FlxColor.BLACK, 2.5);
-				remove(phantomSr);
 				remove(credGroup);
-				if (ClientPrefs.data.recordoptimization == 'enabled') add(new Notification('Optimizacion de Grabacion..', "la optimizacio de Grabacion se encuentra Activada Actualmente", 0, null, 1));
+				if (ClientPrefs.data.recordoptimization == 'enabled') add(new objects.Notification('Optimizacion de Grabacion..', "la optimizacio de Grabacion se encuentra Activada Actualmente", 0, null, 1));
 
 				var easteregg:String = FlxG.save.data.psychDevsEasterEgg;
 				if (easteregg == null) easteregg = '';
