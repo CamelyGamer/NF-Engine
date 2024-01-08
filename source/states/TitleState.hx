@@ -91,6 +91,13 @@ class TitleState extends MusicBeatState
 	public static var bpm:Float = 0;
     
     var lang:String = '';
+
+	public function onAlpha(Timer:FlxTimer):Void {
+		FlxTween.tween(logoBl, {"scale.x": 1, "scale.y": 1}, 0.1, {
+			onComplete: function (twn:FlxTween) {
+				FlxTween.tween(logoBl, {"scale.x": 0.9, "scale.y": 0.9}, 0.1);
+		}});
+	}
     
 	override public function create():Void
 	{
@@ -295,8 +302,12 @@ class TitleState extends MusicBeatState
 		if (!initialized)
 		{
 			if(FlxG.sound.music == null) {
-				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
-			}
+				if (ClientPrefs.data.music == 'Disabled') FlxG.sound.playMusic(Paths.music('none'), 1.2);
+
+				if (ClientPrefs.data.music == 'Hallucination') FlxG.sound.playMusic(Paths.music('Hallucination'), 1.2);
+
+				if (ClientPrefs.data.music == 'TerminalMusic') FlxG.sound.playMusic(Paths.music('TerminalMusic'), 1.2);
+		}
 		}
 
 		Conductor.bpm = titleJSON.bpm;
@@ -307,6 +318,7 @@ class TitleState extends MusicBeatState
 
 		if (titleJSON.backgroundSprite != null && titleJSON.backgroundSprite.length > 0 && titleJSON.backgroundSprite != "none"){
 			bg.loadGraphic(Paths.image(titleJSON.backgroundSprite));
+			bg.visible = false;
 		}else{
 			bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		}
@@ -315,15 +327,13 @@ class TitleState extends MusicBeatState
 		// bg.updateHitbox();
 		add(bg);
 
-		logoBl = new FlxSprite(titleJSON.titlex, titleJSON.titley);
-		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
+		logoBl = new FlxSprite().loadGraphic(Paths.image('corruption-logo'));
 		logoBl.antialiasing = ClientPrefs.data.antialiasing;
-
-		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
-		logoBl.animation.play('bump');
 		logoBl.updateHitbox();
-		// logoBl.screenCenter();
-		// logoBl.color = FlxColor.BLACK;
+		logoBl.screenCenter();
+		logoBl.alpha = 1;
+		logoBl.scale.x = 0.9;
+		logoBl.scale.y = 0.9;
 
 		if(ClientPrefs.data.shaders) swagShader = new ColorSwap();
 		gfDance = new FlxSprite(titleJSON.gfx, titleJSON.gfy);
@@ -363,6 +373,7 @@ class TitleState extends MusicBeatState
 				gfDance.animation.addByIndices('danceRight', 'gfDance', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 		}
 
+		gfDance.visible = false;
 		add(gfDance);
 		add(logoBl);
 		if(swagShader != null)
@@ -517,22 +528,25 @@ class TitleState extends MusicBeatState
 				
 				if(titleText != null) titleText.animation.play('press');
 
-				FlxG.camera.flash(ClientPrefs.data.flashing ? FlxColor.WHITE : 0x4CFFFFFF, 1);
 				FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 
 				transitioning = true;
-				// FlxG.sound.music.stop();
 
-				new FlxTimer().start(1, function(tmr:FlxTimer)
-				{
-					if (mustUpdate) {
-						MusicBeatState.switchState(new OutdatedState());
-					} else {
-						MusicBeatState.switchState(new MainMenuState());
+				FlxG.cameras.fade(FlxColor.BLACK, ClientPrefs.data.timetrans + 2, false);
+				FlxTween.tween(titleTxt2, {alpha: 0}, ClientPrefs.data.timetrans + 3);
+				FlxFlicker.flicker(titleTxt2, ClientPrefs.data.timetrans + 3, 0.2, true, true);
+				if (FlxG.sound.music != null) FlxG.sound.music.fadeOut(ClientPrefs.data.timetrans, 1);
+				FlxTween.tween(logoBl, {alpha: 0}, ClientPrefs.data.timetrans + 2, {
+					onComplete: function (twn:FlxTween) {
+
+						new FlxTimer().start(1, function(tmr:FlxTimer)
+							{
+									MusicBeatState.switchState(new MainMenuState());
+									//MusicBeatState.switchState(new ActAvailableState());
+								closedState = true;
+							});
 					}
-					closedState = true;
 				});
-				// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 			}
 			#if TITLE_SCREEN_EASTER_EGG
 			else if (FlxG.keys.firstJustPressed() != FlxKey.NONE)
@@ -656,81 +670,24 @@ class TitleState extends MusicBeatState
 			switch (sickBeats)
 			{
 				case 1:
-					//FlxG.sound.music.stop();
-					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
-					FlxG.sound.music.fadeIn(4, 0, 0.7);
-				case 2:
-					#if PSYCH_WATERMARKS
-					createCoolText(['NF Engine by'], 40);
-					#else
-					createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
-					#end
-				// credTextShit.visible = true;
-				case 4:
-					#if PSYCH_WATERMARKS
-					addMoreText('beihu', 40);
-					addMoreText('TieGuo', 40);
-					#else
-					addMoreText('present');
-					#end
-				// credTextShit.text += '\npresent...';
-				// credTextShit.addText();
-				case 5:
-					deleteCoolText();
-				// credTextShit.visible = false;
-				// credTextShit.text = 'In association \nwith';
-				// credTextShit.screenCenter();
-				/*case 6:
+					if (ClientPrefs.data.music == 'Disabled') FlxG.sound.playMusic(Paths.music('none'), 0);
+	
+					if (ClientPrefs.data.music == 'Hallucination')	FlxG.sound.playMusic(Paths.music('Hallucination'), 0);
+	
+					if (ClientPrefs.data.music == 'TerminalMusic') FlxG.sound.playMusic(Paths.music('TerminalMusic'), 0);
 					
-				// credTextShit.visible = true;
-				case 7:
-					
-				// credTextShit.text += '\npresent...';
-				// credTextShit.addText();*/
-				case 6:
-					deleteCoolText();
-				// credTextShit.visible = false;
-				// credTextShit.text = 'In association \nwith';
-				// credTextShit.screenCenter();
-				case 7:
-					#if PSYCH_WATERMARKS
-					createCoolText(['Not associated', 'with'], -40);
-					#else
-					createCoolText(['In association', 'with'], -40);
-					#end
-				case 8:
-					addMoreText('newgrounds', -40);
-					ngSpr.visible = true;
-				// credTextShit.text += '\nNewgrounds';
-				case 9:
-					deleteCoolText();
-					ngSpr.visible = false;
-				// credTextShit.visible = false;
-
-				// credTextShit.text = 'Shoutouts Tom Fulp';
-				// credTextShit.screenCenter();
-				case 10:
-					createCoolText([curWacky[0]]);
-				// credTextShit.visible = true;
-				case 11:
-					addMoreText(curWacky[1]);
-				// credTextShit.text += '\nlmao';
-				case 12:
-					deleteCoolText();
-				// credTextShit.visible = false;
-				// credTextShit.text = "Friday";
-				// credTextShit.screenCenter();
-				case 13:
-					addMoreText('Friday');
-				// credTextShit.visible = true;
-				case 14:
-					addMoreText('Night');
-				// credTextShit.text += '\nNight';
-				case 15:
-					addMoreText('Funkin'); // credTextShit.text += '\nFunkin';
-
-				case 16:
-					skipIntro();
+					if (ClientPrefs.data.musicState != 'disabled')	FlxG.sound.music.fadeIn(2, 0, 1.2);
+					case 2:
+						addMoreText('Ending');
+					case 3:
+						addMoreText('Corruption');
+					case 4:
+						addMoreText(ClientPrefs.data.endingCorruprion, 0, FlxColor.RED);
+					case 5:
+						deleteCoolText();
+					case 6:
+						FlxG.cameras.fade(FlxColor.BLACK, 0.4, true);
+						skipIntro();
 			}
 		}
 	}
@@ -797,9 +754,10 @@ class TitleState extends MusicBeatState
 			}
 			else //Default! Edit this one!!
 			{
-				remove(ngSpr);
+				FlxG.cameras.flash(FlxColor.BLACK, 2.5);
+				remove(phantomSr);
 				remove(credGroup);
-				FlxG.camera.flash(FlxColor.WHITE, 2);
+				if (ClientPrefs.data.recordoptimization == 'enabled') add(new Notification('Optimizacion de Grabacion..', "la optimizacio de Grabacion se encuentra Activada Actualmente", 0, null, 1));
 
 				var easteregg:String = FlxG.save.data.psychDevsEasterEgg;
 				if (easteregg == null) easteregg = '';
