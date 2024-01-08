@@ -70,7 +70,7 @@ class TitleState extends MusicBeatState
 
 	var wackyImage:FlxSprite;
 
-	#if TITLE_SCREEN_EASTER_EGG
+	#if desktop
 	var easterEggKeys:Array<String> = [
 		'SHADOW', 'RIVER', 'SHUBS', 'BBPANZU'
 	];
@@ -103,9 +103,9 @@ class TitleState extends MusicBeatState
 		
 		if (ClientPrefs.data.language == 'Inglish') lang = 'Welcome to Ending Corruption Android\nVersion: ' + ClientPrefs.data.endingCorruprion;
 
-		if (ClientPrefs.data.language == 'Spanish') lang = 'Bienvenido a Ending Corruption Android\nVersion: ' + ClientPrefs.data.endingCorruption;
+		if (ClientPrefs.data.language == 'Spanish') lang = 'Bienvenido a Ending Corruption Android\nVersion: ' + ClientPrefs.data.endingCorruprion;
 
-		if (ClientPrefs.data.language == 'Portuguese') lang = 'Bem-vindo ao Acabando com a Corrupção Android\nVersão: ' + ClientPrefs.data.endingCorruption;
+		if (ClientPrefs.data.language == 'Portuguese') lang = 'Bem-vindo ao Acabando com a Corrupção Android\nVersão: ' + ClientPrefs.data.endingCorruprion;
 			
 		if(!checkOpenFirst){
 										
@@ -173,7 +173,7 @@ class TitleState extends MusicBeatState
 		// IGNORE THIS!!!
 		titleJSON = Json.parse(Paths.getTextFromFile('images/gfDanceTitle.json'));
 
-		#if TITLE_SCREEN_EASTER_EGG
+		#if desktop
 		if (FlxG.save.data.psychDevsEasterEgg == null) FlxG.save.data.psychDevsEasterEgg = ''; //Crash prevention
 		switch(FlxG.save.data.psychDevsEasterEgg.toUpperCase())
 		{
@@ -308,7 +308,7 @@ class TitleState extends MusicBeatState
 		switch(easterEgg.toUpperCase())
 		{
 			// IGNORE THESE, GO DOWN A BIT
-			#if TITLE_SCREEN_EASTER_EGG
+			#if desktop
 			case 'SHADOW':
 				gfDance.frames = Paths.getSparrowAtlas('ShadowBump');
 				gfDance.animation.addByPrefix('danceLeft', 'Shadow Title Bump', 24);
@@ -507,7 +507,7 @@ class TitleState extends MusicBeatState
 				});
 				// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 			}
-			#if TITLE_SCREEN_EASTER_EGG
+			#if desktop
 			else if (FlxG.keys.firstJustPressed() != FlxKey.NONE)
 			{
 				var keyPressed:FlxKey = FlxG.keys.firstJustPressed();
@@ -777,7 +777,7 @@ class TitleState extends MusicBeatState
 				var easteregg:String = FlxG.save.data.psychDevsEasterEgg;
 				if (easteregg == null) easteregg = '';
 				easteregg = easteregg.toUpperCase();
-				#if TITLE_SCREEN_EASTER_EGG
+				#if desktop
 				if(easteregg == 'SHADOW')
 				{
 					FlxG.sound.music.fadeOut();
