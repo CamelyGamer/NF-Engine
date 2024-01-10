@@ -400,7 +400,9 @@ class StoryMenuState extends MusicBeatState
 			});
 			
 			#if MODS_ALLOWED
-			DiscordClient.loadModRPC();
+				#if desktop
+					DiscordClient.loadModRPC();
+				#end
 			#end
 		} else {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
