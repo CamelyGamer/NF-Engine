@@ -692,7 +692,7 @@ class PlayState extends MusicBeatState
 		uiGroup.add(timeTxt);
 		
 		if (stageUI != "pixel") {
-			healthBar = new HealthBar(-140, 0, 'healthBar', function() return health, 0, 100, 90);
+			healthBar = new Bar(-140, 0, 'healthBar', function() return health, 0, 100, 90);
 			healthBar.screenCenter(Y);
 			healthBar.leftToRight = false;
 			healthBar.scrollFactor.set();
@@ -701,7 +701,7 @@ class PlayState extends MusicBeatState
 			//healthBar.setBounds(3, 6);
 			}
 			if (stageUI == "pixel") {
-			healthBar = new HealthBar(-140, 0, 'healthBarPIXEL', function() return health, 0, 100, 90);
+			healthBar = new Bar(-140, 0, 'healthBarPIXEL', function() return health, 0, 100, 90);
 			healthBar.screenCenter(Y);
 			healthBar.leftToRight = false;
 			healthBar.scrollFactor.set();
@@ -801,6 +801,7 @@ class PlayState extends MusicBeatState
 		comboGroup.cameras = [camHUD];		
 		uiGroup.cameras = [camHUD];				
 		noteGroup.cameras = [camHUD];
+		healthBar.cameras = [camHUD];
 
 		startingSong = true;
 		
