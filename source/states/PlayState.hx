@@ -691,24 +691,37 @@ class PlayState extends MusicBeatState
 		uiGroup.add(timeBar);
 		uiGroup.add(timeTxt);
 		
-		healthBar = new Bar(0, FlxG.height * (!ClientPrefs.data.downScroll ? 0.89 : 0.11), 'healthBar', function() return health, 0, 2);
-		healthBar.screenCenter(X);
-		healthBar.leftToRight = ClientPrefs.data.playOpponent;
-		healthBar.scrollFactor.set();
-		healthBar.visible = !ClientPrefs.data.hideHud;
+		if (stageUI != "pixel") {
+			healthBar = new HealthBar(-140, 0, 'healthBar', function() return health, 0, 100, 90);
+			healthBar.screenCenter(Y);
+			healthBar.leftToRight = false;
+			healthBar.scrollFactor.set();
+			healthBar.visible = !ClientPrefs.data.hideHud;
+			healthBar.alpha = 0;
+			//healthBar.setBounds(3, 6);
+			}
+			if (stageUI == "pixel") {
+			healthBar = new HealthBar(-140, 0, 'healthBarPIXEL', function() return health, 0, 100, 90);
+			healthBar.screenCenter(Y);
+			healthBar.leftToRight = false;
+			healthBar.scrollFactor.set();
+			healthBar.visible = !ClientPrefs.data.hideHud;
+			healthBar.alpha = 0;
+			//healthBar.setBounds(3, 6);
+			}
+
+		add(healthBar);
 		healthBar.alpha = ClientPrefs.data.healthBarAlpha;
-		reloadHealthBarColors();
-		uiGroup.add(healthBar);
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - 75;
-		iconP1.visible = !ClientPrefs.data.hideHud;
+		iconP1.visible = false;
 		iconP1.alpha = ClientPrefs.data.healthBarAlpha;
 		uiGroup.add(iconP1);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
 		iconP2.y = healthBar.y - 75;
-		iconP2.visible = !ClientPrefs.data.hideHud;
+		iconP2.visible = false;
 		iconP2.alpha = ClientPrefs.data.healthBarAlpha;
 		uiGroup.add(iconP2);
 
@@ -719,18 +732,14 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.data.hideHud;
 		uiGroup.add(scoreTxt);
 		
-		var marvelousRate:String = ClientPrefs.data.marvelousRating ? 'Marvelous: 0\n' : '';
+		var marvelousRate:String = ClientPrefs.data.marvelousRating ? 'NOT FOUND\n' : '';
 		judgementCounter_S = new FlxText(10, 0, 0, "", 20);
 		judgementCounter_S.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		judgementCounter_S.borderSize = 1.5;
 		judgementCounter_S.borderQuality = 2;
 		judgementCounter_S.scrollFactor.set();
 		judgementCounter_S.cameras = [camHUD];
-		judgementCounter_S.text = marvelousRate 
-		+ 'Sicks: 0' + '\n'
-		+ 'Goods: 0' + '\n'
-		+ 'Bads: 0' + '\n'
-		+ 'Shits: 0' + '\n';
+		judgementCounter_S.text = 'NOT FOUND';
 		judgementCounter_S.visible = (ClientPrefs.data.judgementCounter && !ClientPrefs.data.hideHud && !ClientPrefs.getGameplaySetting('botplay'));		
 		judgementCounter_S.cameras = [camHUD];
 		add(judgementCounter_S);
@@ -1378,31 +1387,32 @@ class PlayState extends MusicBeatState
 			str += ' (${percent}%) - ${ratingFC}';
 		}
 
-		scoreTxt.text = 
-                "NPS: "
-		        + nps
-		        + " (Max: "
-		        + maxNPS
-		        + ")"
-		        + " | " // 	NPS
-		        + "Score: " + songScore
-		        + " | Misses: " + songMisses
-		        + " | Accuracy: " + Math.ceil(ratingPercent * 10000) / 100 + '%'
-		        + " | ";
-		        
-		        if (ratingName == 'N/A'){
-		            scoreTxt.text += 'N/A';
-		        }
-		        else {
-		            scoreTxt.text += '(' + ratingFC + ') ' + ratingName;
-		        }
+		if (ClientPrefs.data.language == 'Inglish') {
+		scoreTxt.text = "Score: " + songScore + "\nMisses: " + songMisses + "Rating: " + ratingName + "(" + ratingPercent + ")%\nVelocity: " + songSpeed + "x";
+		}
+		if (ClientPrefs.data.language == 'Spanish') {
+		scoreTxt.text = "Puntuacion: " + songScore + "\nFallas: " + songMisses + "Calificacion: " + ratingName + "(" + ratingPercent + ")%\nVelocidad: " + songSpeed + "x";
+		}
+		if (ClientPrefs.data.language == 'Portuguese') {
+		scoreTxt.text = "Pontuacao: " + songScore + "\nFalhas: " + songMisses + "Qualificacao: " + ratingName + "(" + ratingPercent + ")%\nVelocidade: " + songSpeed + "x";
+		}
 		
+		if (ClientPrefs.data.language == 'Inglish') {
 		var marvelousRate:String = ClientPrefs.data.marvelousRating ? 'Marvelous: ${ratingsData[4].hits}\n' : '';
 		judgementCounter_S.text = marvelousRate
 		+ 'Sicks: ${ratingsData[0].hits}\n'
 		+ 'Goods: ${ratingsData[1].hits}\n'
 		+ 'Bads: ${ratingsData[2].hits}\n'
 		+ 'Shits: ${ratingsData[3].hits}\n';
+		}
+		if (ClientPrefs.data.language == 'Spanish' || ClientPrefs.data.language == 'Portuguese') {
+			var marvelousRate:String = ClientPrefs.data.marvelousRating ? 'Maravilloso: ${ratingsData[4].hits}\n' : '';
+			judgementCounter_S.text = marvelousRate
+			+ 'Sicks: ${ratingsData[0].hits}\n'
+			+ 'Buenas: ${ratingsData[1].hits}\n'
+			+ 'Malas: ${ratingsData[2].hits}\n'
+			+ 'Shits: ${ratingsData[3].hits}\n';
+		}
 		
 		if (!miss && ClientPrefs.data.playOpponent ? !cpuControlled_opponent : !cpuControlled)
 			doScoreBop();
@@ -4146,15 +4156,23 @@ class PlayState extends MusicBeatState
 
 	function strumPlayAnim(isDad:Bool, id:Int, time:Float) {
 		var spr:StrumNote = null;
-		if(isDad) {
-			spr = opponentStrums.members[id];
-		} else {
-			spr = playerStrums.members[id];
-		}
+		var spr2:StrumNote = null;
 
-		if(spr != null) {
+			spr = opponentStrums.members[id];
+
+			spr2 = playerStrums.members[id];
+
+			spr.x = spr2.x;
+
+		if(spr != null && isDad == true || spr2 != null && isDad == false) {
+			if (isDad) {
 			spr.playAnim('confirm', true);
 			spr.resetAnim = time;
+			}
+			if (!isDad) {
+			spr2.playAnim('confirm', true);
+			spr2.resetAnim = time;
+			}
 		}
 	}
 
