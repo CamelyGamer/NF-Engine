@@ -112,11 +112,11 @@ class OptionsState extends MusicBeatState
 		selectorRight = new Alphabet(0, 0, '<]', true);
 		add(selectorRight);
 
-		controlsButton = new FlxButton(FlxG.width - 100, FlxG.height - 100, "", onClickControls);
+		controlsButton = new FlxButton(FlxG.width - 100, FlxG.height - 400, "", onClickControls);
 		controlsButton.loadGraphicFromSprite(controlsIcon);
 		controlsButton.scrollFactor.set();
 
-		reloadButton = new FlxButton(FlxG.width - 100, FlxG.height - 200, "", onClickReload);
+		reloadButton = new FlxButton(FlxG.width - 100, FlxG.height - 500, "", onClickReload);
 		reloadButton.loadGraphicFromSprite(reloadIcon);
 		reloadButton.scrollFactor.set();
 

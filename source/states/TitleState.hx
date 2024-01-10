@@ -483,6 +483,12 @@ class TitleState extends MusicBeatState
 			titleTxt.alpha = 1;
 		}
 
+		if (ClientPrefs.data.username == 'User') {
+			ClientPrefs.data.username = 'User' + FlxG.random.int(0, 100) + FlxG.random.int(0, 200);
+			ClientPrefs.saveSettings();
+			ClientPrefs.loadPrefs();
+		}
+
 		// credGroup.add(credTextShit);
 	}
 
@@ -569,6 +575,8 @@ class TitleState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 
 				transitioning = true;
+
+				titleTxt.visible = false;
 
 				FlxG.cameras.fade(FlxColor.BLACK, ClientPrefs.data.timetrans + 2, false);
 				FlxTween.tween(titleTxt2, {alpha: 0}, ClientPrefs.data.timetrans + 3);

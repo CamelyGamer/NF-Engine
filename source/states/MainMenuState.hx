@@ -151,7 +151,7 @@ class MainMenuState extends MusicBeatState
 	}
 
 	public function onSetting(Timer:FlxTimer):Void {
-		if (!ClientPrefs.data.noneAnimations) angleTween = FlxTween.angle(settingButton, 0, 360, 4);
+		//if (!ClientPrefs.data.noneAnimations) angleTween = FlxTween.angle(settingButton, 0, 360, 4);
 		if (selectedSomethin != true && !ClientPrefs.data.noneAnimations) {
 			changeItem();
 		}
@@ -367,6 +367,11 @@ class MainMenuState extends MusicBeatState
 	TextMove.start(0.3, onGenerate, 0);
 
 	selectedSomethin = false;
+
+	FlxTween.angle(settingButton, 0, 360, 1, {
+		ease: FlxEase.circIn,
+		type: LOOPING
+	});
 			
 	#if !android
 	FlxG.mouse.visible = true;
@@ -387,7 +392,7 @@ class MainMenuState extends MusicBeatState
 			FlxTween.tween(bgCG, {alpha: 0}, ClientPrefs.data.timetrans);
 			FlxTween.tween(versionEngine, {x: -500}, 1);
 			FlxTween.tween(versionShit, {x: -500}, 1);
-			FlxTween.tween(settingButton, {y: 500}, 1);
+			FlxTween.tween(settingButton, {y: FlxG.height + 100}, 1);
 			FlxTween.tween(videoButton, {x: FlxG.width + 40}, 1);
 			menuItems.forEach(function(spr:FlxSprite)
 				{
@@ -520,7 +525,7 @@ class MainMenuState extends MusicBeatState
 					FlxTween.tween(bgCG, {alpha: 0}, 0.5);
 					FlxTween.tween(versionEngine, {alpha: 0}, 0.5);
 					FlxTween.tween(versionShit, {alpha: 0}, 0.5);
-					FlxTween.tween(settingButton, {y: 500}, 0.5);
+					FlxTween.tween(settingButton, {y: FlxG.height + 100}, 0.5);
 					FlxTween.tween(videoButton, {x: FlxG.width + 40}, 0.5);
 }
 

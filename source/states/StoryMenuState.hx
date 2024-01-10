@@ -469,8 +469,8 @@ class StoryMenuState extends MusicBeatState
 
 		var leName:String = leWeek.storyName;
 		txtWeekTitle.text = leName.toUpperCase();
-		txtWeekTitle.x = FlxG.width - (txtWeekTitle.width + 10);
-		txtWeekTitle.y = FlxG.height - (txtWeekTitle.height + 10);
+		txtWeekTitle.x = FlxG.width - (txtWeekTitle.width + 40);
+		txtWeekTitle.y = FlxG.height - (txtWeekTitle.height + 40);
 
 		var bullShit:Int = 0;
 
