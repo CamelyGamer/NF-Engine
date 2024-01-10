@@ -1,6 +1,6 @@
 package objects;
 
-import animateatlas.AtlasFrameMaker;
+//import animateatlas.AtlasFrameMaker;
 
 import flixel.util.FlxSort;
 
@@ -129,8 +129,8 @@ class Character extends FlxSprite
 
 				if(!useAtlas)
 					frames = Paths.getAtlas(json.image);
-				else
-					frames = AtlasFrameMaker.construct(json.image);
+				//else
+				//	frames = AtlasFrameMaker.construct(json.image);
 
 				imageFile = json.image;
 				if(json.scale != 1) {
