@@ -42,7 +42,7 @@ import flixel.util.FlxSort;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
-import flixel.animation.FlxAnimationController;
+//import flixel.animation.FlxAnimationController;
 import lime.utils.Assets;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.events.KeyboardEvent;
@@ -905,12 +905,12 @@ class PlayState extends MusicBeatState
 			}
 
 		if (chartingMode == true) {
-		var maskEditor = new FlxText(100, FlxG.height - 64, 0, "Mod by ThonnyDev", 12);
+		var maskEditor = new FlxText(100, FlxG.height - 64, 0, "Mod by ThonnyDev - TGames | CamelyGamer", 12);
 		maskEditor.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		maskEditor.visible = chartingMode;
 		maskEditor.scrollFactor.set();
 		add(maskEditor);
-		var maskEditorV = new FlxText(100, FlxG.height - 44, 0, "Ending Corruption V" + ClientPrefs.data.endingCorruprion + " | Path V" + ClientPrefs.data.pathVersion, 12);
+		var maskEditorV = new FlxText(100, FlxG.height - 44, 0, "Ending Corruption V" + ClientPrefs.data.endingcorruption + " Android", 12);
 		maskEditorV.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		maskEditorV.visible = chartingMode;
 		maskEditorV.scrollFactor.set();
@@ -1161,7 +1161,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 		playbackRate = value;
-		FlxAnimationController.globalSpeed = value;
+		//FlxAnimationController.globalSpeed = value;
 		Conductor.safeZoneOffset = (ClientPrefs.data.safeFrames / 60) * 1000 * value;
 		setOnScripts('playbackRate', playbackRate);
 		return value;
@@ -2248,12 +2248,7 @@ class PlayState extends MusicBeatState
 		}
 
 		if (controls.justPressed('debug_1') && !endingSong && !inCutscene) {
-			//if (TitleState.editorresult == true) {
-				openChartEditor();
-				statusGame = false;
-			//}
 
-			/*if (TitleState.editorresult != true) {
 				if (ClientPrefs.data.flashing == true) {
 				FlxG.camera.flash(0x6E8D0000, 0.2);
 				}
@@ -2266,7 +2261,6 @@ class PlayState extends MusicBeatState
 					if (ClientPrefs.data.language == 'Portuguese') {
 						add(new Notification("Erro", "Infelizmente esta opção está desabilitada pelo Criador ou você não está conectado à Internet", 1, camOther, 1));
 					}
-			}*/
 		}
 
 		if (health > 100) health = 100;
@@ -2300,11 +2294,6 @@ class PlayState extends MusicBeatState
 	}
 
 		if (controls.justPressed('debug_2') && !endingSong && !inCutscene) {
-			//if (TitleState.editorresult == true) {
-			openCharacterEditor();
-			statusGame = false;
-			//}
-			if (TitleState.editorresult != true) {
 				if (ClientPrefs.data.flashing == true) {
 				FlxG.camera.flash(0x6E8D0000, 0.2);
 				}
@@ -2314,7 +2303,6 @@ class PlayState extends MusicBeatState
 
 				if (ClientPrefs.data.language == 'Portuguese') add(new Notification("Erro", "Infelizmente esta opção está desabilitada pelo Criador ou você não está conectado à Internet", 1, camOther, 1));
 					
-			}
 		}
 		
 		if (startedCountdown && !paused)
@@ -4057,7 +4045,7 @@ class PlayState extends MusicBeatState
 
 		FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 		FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
-		FlxAnimationController.globalSpeed = 1;
+		//FlxAnimationController.globalSpeed = 1;
 		FlxG.sound.music.pitch = 1;
 		Note.globalRgbShaders = [];
 		backend.NoteTypesConfig.clearNoteTypesData();

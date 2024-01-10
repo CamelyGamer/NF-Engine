@@ -1,6 +1,6 @@
 package states.editors;
 
-import animateatlas.AtlasFrameMaker;
+//import animateatlas.AtlasFrameMaker;
 
 import flixel.FlxObject;
 import flixel.graphics.FlxGraphic;
@@ -830,7 +830,7 @@ class CharacterEditorState extends MusicBeatState
 		}
 		var anims:Array<AnimArray> = char.animationsArray.copy();
 		if(Paths.fileExists('images/' + char.imageFile + '/Animation.json', TEXT)) {
-			char.frames = AtlasFrameMaker.construct(char.imageFile);
+			//char.frames = AtlasFrameMaker.construct(char.imageFile);
 		} else if(Paths.fileExists('images/' + char.imageFile + '.txt', TEXT)) {
 			char.frames = Paths.getPackerAtlas(char.imageFile);
 		} else {

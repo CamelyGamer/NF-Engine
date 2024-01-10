@@ -32,6 +32,9 @@ class AndroidControlsMenu extends MusicBeatState
 	var bindbutton:FlxButton;
 	var config:Config;
     var extendConfig:Config;
+
+	var tipText:FlxText;
+	var titleText:Alphabet;
     
 	override public function create():Void
 	{
@@ -48,13 +51,13 @@ class AndroidControlsMenu extends MusicBeatState
 		add(bg);
 
 		if (ClientPrefs.data.language == 'Inglish') {
-		var titleText:Alphabet = new Alphabet(75, 60, "Android Controls", true);
+		titleText = new Alphabet(75, 60, "Android Controls", true);
 		}
 		if (ClientPrefs.data.language == 'Spnaish') {
-		var titleText:Alphabet = new Alphabet(75, 60, "Controles Android", true);
+		titleText = new Alphabet(75, 60, "Controles Android", true);
 		}
 		if (ClientPrefs.data.language == 'Portuguese') {
-		var titleText:Alphabet = new Alphabet(75, 60, "Controles Android", true);
+		titleText = new Alphabet(75, 60, "Controles Android", true);
 		}
 		titleText.scaleX = 0.6;
 		titleText.scaleY = 0.6;
@@ -127,13 +130,13 @@ class AndroidControlsMenu extends MusicBeatState
 		add(shiftPozition);
 
 		if (ClientPrefs.data.language == 'Inglish') {
-		var tipText:FlxText = new FlxText(10, FlxG.heght - 24, 0, 'Press BACK to Go Back to Options Menu', 16);
+		tipText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK to Go Back to Options Menu', 16);
 		}
 		if (ClientPrefs.data.language == 'Spanish') {
-			var tipText:FlxText = new FlxText(10, FlxG.heght - 24, 0, 'Presione "BACK" para regresar al menú de opciones', 16);
+			tipText = new FlxText(10, FlxG.height - 24, 0, 'Presione "BACK" para regresar al menú de opciones', 16);
 		}
 		if (ClientPrefs.data.language == 'Portuguese') {
-			var tipText:FlxText = new FlxText(10, FlxG.heght - 24, 0, 'Pressione "BACK" para retornar ao menu de opções', 16);
+			tipText = new FlxText(10, FlxG.height - 24, 0, 'Pressione "BACK" para retornar ao menu de opções', 16);
 		}
 		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		tipText.borderSize = 2;
