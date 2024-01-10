@@ -366,6 +366,7 @@ class MainMenuState extends MusicBeatState
 	TextMove = new FlxTimer();
 	TextMove.start(0.3, onGenerate, 0);
 
+	selectedSomethin = false;
 			
 	#if !android
 	FlxG.mouse.visible = true;
@@ -386,7 +387,7 @@ class MainMenuState extends MusicBeatState
 			FlxTween.tween(bgCG, {alpha: 0}, ClientPrefs.data.timetrans);
 			FlxTween.tween(versionEngine, {x: -500}, 1);
 			FlxTween.tween(versionShit, {x: -500}, 1);
-			FlxTween.tween(settingButton, {x: FlxG.width + 40}, 1);
+			FlxTween.tween(settingButton, {y: 500}, 1);
 			FlxTween.tween(videoButton, {x: FlxG.width + 40}, 1);
 			menuItems.forEach(function(spr:FlxSprite)
 				{
@@ -402,8 +403,10 @@ class MainMenuState extends MusicBeatState
 	}
 
 	public function onClickVideo() {
+		#if !android
 		FlxG.sound.play(Paths.sound('confirmMenu'));
 		CoolUtil.browserLoad('');
+		#end
 	}
 
 	function onGenerate(Timer:FlxTimer):Void {
@@ -517,7 +520,7 @@ class MainMenuState extends MusicBeatState
 					FlxTween.tween(bgCG, {alpha: 0}, 0.5);
 					FlxTween.tween(versionEngine, {alpha: 0}, 0.5);
 					FlxTween.tween(versionShit, {alpha: 0}, 0.5);
-					FlxTween.tween(settingButton, {x: FlxG.width + 40}, 0.5);
+					FlxTween.tween(settingButton, {y: 500}, 0.5);
 					FlxTween.tween(videoButton, {x: FlxG.width + 40}, 0.5);
 }
 

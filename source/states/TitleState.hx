@@ -115,7 +115,7 @@ class TitleState extends MusicBeatState
 	}
 
 	function onGenerate(Timer:FlxTimer):Void {
-		titleTxt.text = textShow;
+		//titleTxt.text = textShow;
     }
     
 	override public function create():Void
@@ -406,16 +406,13 @@ class TitleState extends MusicBeatState
 		}
 
 		if (ClientPrefs.data.language == 'Spanish') {
-			titleTxt = new FlxText(0, 650, FlxG.width, 48);
-			textShow = "Presiona la Pantalla para Continuar".toLowerCase();
+			titleTxt = new FlxText(0, 650, FlxG.width, "Presiona la Pantalla para Continuar".toUpperCase(), 48);
 		}
 		if (ClientPrefs.data.language == 'Inglish') {
-			titleTxt = new FlxText(0, 650, FlxG.width, 48);
-			textShow = "Press the Screen to Continue".toLowerCase();
+			titleTxt = new FlxText(0, 650, FlxG.width, "Press the Screen to Continue".toUpperCase(), 48);
 		}
 		if (ClientPrefs.data.language == 'Portuguese') {
-			titleTxt = new FlxText(0, 650, FlxG.width, 48);
-			textShow = "Pressione a tela para continuar".toLowerCase();
+			titleTxt = new FlxText(0, 650, FlxG.width, "Pressione a tela para continuar".toUpperCase(), 48);
 		}
 		titleTxt.setFormat(Paths.font("vnd.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		titleTxt.visible = true;
