@@ -2436,7 +2436,7 @@ class PlayState extends MusicBeatState
 			if(eventNotes[0].value3 != null)
 				value3 = eventNotes[0].value3;
 
-			triggerEvent(eventNotes[0].event, value1, value2, leStrumTime);
+			triggerEvent(eventNotes[0].event, value1, value2, value3, leStrumTime);
 			eventNotes.shift();
 		}
 	}
