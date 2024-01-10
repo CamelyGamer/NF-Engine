@@ -1,14 +1,17 @@
 package states.stages;
 
+import flixel.math.FlxPoint;
+
 class Spooky extends BaseStage
 {
 	var halloweenBG:BGSprite;
 	var halloweenWhite:BGSprite;
 	override function create()
 	{
-		if(!ClientPrefs.data.lowQuality) {
+		if(!ClientPrefs.data.lowQuality && !ClientPrefs.data.noneBGAnimated) {
 			halloweenBG = new BGSprite('halloween_bg', -200, -100, ['halloweem bg0', 'halloweem bg lightning strike']);
-		} else {
+		}
+		if (ClientPrefs.data.lowQuality || ClientPrefs.data.noneBGAnimated) {
 			halloweenBG = new BGSprite('halloween_bg_low', -200, -100);
 		}
 		add(halloweenBG);
@@ -38,6 +41,35 @@ class Spooky extends BaseStage
 
 	var lightningStrikeBeat:Int = 0;
 	var lightningOffset:Int = 8;
+
+	override function eventCalled(eventName:String, value1:String, value2:String, flValue1:Null<Float>, flValue2:Null<Float>, strumTime:Float)
+		{
+			switch(eventName)
+			{
+				case "BG Alpha":
+					if (halloweenBG.alpha == 1) {
+						halloweenBG.alpha = 0;
+					}
+					if (halloweenBG.alpha == 0) {
+						halloweenBG.alpha = 1;
+					}
+			}
+		}
+		override function eventPushed(event:objects.Note.EventNote)
+		{
+			// used for preloading assets used on events
+			switch(event.event)
+			{
+				case "BG Alpha":
+					if (halloweenBG.alpha == 1) {
+						halloweenBG.alpha = 0;
+					}
+					if (halloweenBG.alpha == 0) {
+						halloweenBG.alpha = 1;
+					}	
+			}
+		}
+
 	override function beatHit()
 	{
 		if (FlxG.random.bool(10) && curBeat > lightningStrikeBeat + lightningOffset)
@@ -49,7 +81,7 @@ class Spooky extends BaseStage
 	function lightningStrikeShit():Void
 	{
 		FlxG.sound.play(Paths.soundRandom('thunder_', 1, 2));
-		if(!ClientPrefs.data.lowQuality) halloweenBG.animation.play('halloweem bg lightning strike');
+		if(!ClientPrefs.data.lowQuality && !ClientPrefs.data.noneBGAnimated) halloweenBG.animation.play('halloweem bg lightning strike');
 
 		lightningStrikeBeat = curBeat;
 		lightningOffset = FlxG.random.int(8, 24);

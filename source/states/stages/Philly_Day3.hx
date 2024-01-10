@@ -1,11 +1,9 @@
 package states.stages;
 
-import flixel.group.FlxGroup;
 import states.stages.objects.*;
 import objects.Character;
 
-
-class Philly extends BaseStage
+class Philly_Day3 extends BaseStage
 {
 	var phillyLightsColors:Array<FlxColor>;
 	var phillyWindow:BGSprite;
@@ -21,8 +19,8 @@ class Philly extends BaseStage
 
 	override function create()
 	{
-			var bg:BGSprite = new BGSprite('philly/sky', -100, 0, 0.1, 0.1);
-			add(bg);
+		var bg:BGSprite = new BGSprite('philly/sky', -100, 0, 0.1, 0.1);
+		add(bg);
 
 		var city:BGSprite = new BGSprite('philly/city', -10, 0, 0.3, 0.3);
 		city.setGraphicSize(Std.int(city.width * 0.85));
@@ -75,7 +73,6 @@ class Philly extends BaseStage
 
 	override function beatHit()
 	{
-		phillyTrain.beatHit(curBeat);
 		if (curBeat % 4 == 0)
 		{
 			curLight = FlxG.random.int(0, phillyLightsColors.length - 1, [curLight]);
@@ -143,6 +140,7 @@ class Philly extends BaseStage
 						}
 
 						var charColor:FlxColor = color;
+						//var who = chars;
 						if(!ClientPrefs.data.flashing) charColor.saturation *= 0.5;
 						else charColor.saturation *= 0.75;
 
@@ -150,7 +148,6 @@ class Philly extends BaseStage
 						{
 							who.color = charColor;
 						}
-
 						phillyGlowGradient.color = color;
 						phillyWindowEvent.color = color;
 
@@ -163,13 +160,6 @@ class Philly extends BaseStage
 							var particlesNum:Int = FlxG.random.int(8, 12);
 							var width:Float = (2000 / particlesNum);
 							var color:FlxColor = phillyLightsColors[curLightEvent];
-							for (j in 0...3)
-							{
-								for (i in 0...particlesNum)
-								{
-									var particle:PhillyGlowParticle = new PhillyGlowParticle(-400 + width * i + FlxG.random.float(-width / 5, width / 5), phillyGlowGradient.originalY + 200 + (FlxG.random.float(0, 125) + j * 40), color);
-								}
-							}
 						}
 						phillyGlowGradient.bop();
 				}

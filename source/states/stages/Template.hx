@@ -5,7 +5,7 @@ import states.stages.objects.*;
 class Template extends BaseStage
 {
 	// If you're moving your stage from PlayState to a stage file,
-	// you might have to rename some variables if they're missing, for example: camZooming -> game.camZooming
+	// es posible que tengas que cambiar el nombre de algunas variables si faltan, por ejemplo: camZooming -> game.camZooming
 
 	override function create()
 	{
@@ -25,7 +25,7 @@ class Template extends BaseStage
 	}
 
 	
-	override function countdownTick(count:BaseStage.Countdown, num:Int)
+	override function countdownTick(count:Countdown, num:Int)
 	{
 		switch(count)
 		{

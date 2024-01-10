@@ -1,7 +1,12 @@
 package backend;
 
-import haxe.Json;
+import tjson.TJSON as Json;
 import lime.utils.Assets;
+
+#if sys
+import sys.io.File;
+import sys.FileSystem;
+#end
 
 import backend.Section;
 
@@ -12,14 +17,18 @@ typedef SwagSong =
 	var events:Array<Dynamic>;
 	var bpm:Float;
 	var needsVoices:Bool;
+	var mision1:Bool;
+	var mision2:Bool;
+	var mision3:Bool;
+	var mision4:Bool;
+	var mision5:Bool;
 	var speed:Float;
+	var BGFreeplay:String;
 
 	var player1:String;
 	var player2:String;
 	var gfVersion:String;
 	var stage:String;
-
-	@:optional var bG:String;
 
 	@:optional var gameOverChar:String;
 	@:optional var gameOverSound:String;
@@ -46,12 +55,17 @@ class Song
 	public var gameOverLoop:String;
 	public var gameOverEnd:String;
 	public var disableNoteRGB:Bool = false;
+	public var mision1:Bool;
+	public var mision2:Bool;
+	public var mision3:Bool;
+	public var mision4:Bool;
+	public var mision5:Bool;
+	public var BGFreeplay:String = '';
 	public var speed:Float = 1;
 	public var stage:String;
 	public var player1:String = 'bf';
 	public var player2:String = 'dad';
 	public var gfVersion:String = 'gf';
-	public var bG:String = '';
 
 	private static function onLoadJson(songJson:Dynamic) // Convert old charts to newest format
 	{
@@ -107,14 +121,11 @@ class Song
 		#end
 
 		if(rawJson == null) {
-			var path:String = Paths.json(formattedFolder + '/' + formattedSong);
-
 			#if sys
-			if(FileSystem.exists(path))
-				rawJson = File.getContent(path).trim();
-			else
+			rawJson = File.getContent(Paths.json(formattedFolder + '/' + formattedSong)).trim();
+			#else
+			rawJson = Assets.getText(Paths.json(formattedFolder + '/' + formattedSong)).trim();
 			#end
-				rawJson = Assets.getText(Paths.json(formattedFolder + '/' + formattedSong)).trim();
 		}
 
 		while (!rawJson.endsWith("}"))

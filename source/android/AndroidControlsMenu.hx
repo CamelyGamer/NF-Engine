@@ -42,13 +42,20 @@ class AndroidControlsMenu extends MusicBeatState
 		
 		extendConfig = new Config('saved-extendControls');  //use for update control for shift and space --write by NF|beihu(b站-北狐丶逐梦)
 
-		var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('menuDesat'));
-		bg.color = 0xFFea71fd;
+		var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.data.antialiasing;
 		add(bg);
 
+		if (ClientPrefs.data.language == 'Inglish') {
 		var titleText:Alphabet = new Alphabet(75, 60, "Android Controls", true);
+		}
+		if (ClientPrefs.data.language == 'Spnaish') {
+		var titleText:Alphabet = new Alphabet(75, 60, "Controles Android", true);
+		}
+		if (ClientPrefs.data.language == 'Portuguese') {
+		var titleText:Alphabet = new Alphabet(75, 60, "Controles Android", true);
+		}
 		titleText.scaleX = 0.6;
 		titleText.scaleY = 0.6;
 		titleText.alpha = 0.4;
@@ -119,7 +126,15 @@ class AndroidControlsMenu extends MusicBeatState
 		shiftPozition.borderSize = 2;
 		add(shiftPozition);
 
-		var tipText:FlxText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK to Go Back to Options Menu', 16);
+		if (ClientPrefs.data.language == 'Inglish') {
+		var tipText:FlxText = new FlxText(10, FlxG.heght - 24, 0, 'Press BACK to Go Back to Options Menu', 16);
+		}
+		if (ClientPrefs.data.language == 'Spanish') {
+			var tipText:FlxText = new FlxText(10, FlxG.heght - 24, 0, 'Presione "BACK" para regresar al menú de opciones', 16);
+		}
+		if (ClientPrefs.data.language == 'Portuguese') {
+			var tipText:FlxText = new FlxText(10, FlxG.heght - 24, 0, 'Pressione "BACK" para retornar ao menu de opções', 16);
+		}
 		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		tipText.borderSize = 2;
 		tipText.scrollFactor.set();

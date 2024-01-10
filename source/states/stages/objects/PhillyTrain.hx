@@ -3,14 +3,11 @@ package states.stages.objects;
 class PhillyTrain extends BGSprite
 {
 	public var sound:FlxSound;
-	public function new(x:Float = 0, y:Float = 0, image:String = 'philly/train', sound:String = 'train_passes')
+	public function new(x:Float = 0, y:Float = 0, image:String = 'philly/train')
 	{
 		super(image, x, y);
 		active = true; //Allow update
 		antialiasing = ClientPrefs.data.antialiasing;
-
-		this.sound = new FlxSound().loadEmbedded(Paths.sound(sound));
-		FlxG.sound.list.add(this.sound);
 	}
 
 	public var moving:Bool = false;
@@ -28,15 +25,6 @@ class PhillyTrain extends BGSprite
 			frameTiming += elapsed;
 			if (frameTiming >= 1 / 24)
 			{
-				if (sound.time >= 4700)
-				{
-					startedMoving = true;
-					if (PlayState.instance.gf != null)
-					{
-						PlayState.instance.gf.playAnim('hairBlow');
-						PlayState.instance.gf.specialAnim = true;
-					}
-				}
 		
 				if (startedMoving)
 				{
@@ -74,8 +62,6 @@ class PhillyTrain extends BGSprite
 	public function start():Void
 	{
 		moving = true;
-		if (!sound.playing)
-			sound.play(true);
 	}
 
 	public function restart():Void
