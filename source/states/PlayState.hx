@@ -1900,30 +1900,6 @@ class PlayState extends MusicBeatState
 	override function closeSubState()
 	{
 		stagesFunc(function(stage:BaseStage) stage.closeSubState());
-		if (PauseSubState.goToOptions)
-		{
-			if (PauseSubState.goBack)
-			{
-				
-				openSubState(new PauseModeSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
-				//PauseSubState.goToOptions = false;
-				//PauseSubState.goBack = false;
-			}
-			else
-				openOptionMenu();
-		}		
-		else if (PauseSubState.goToGameplayChangers)
-		{
-			if (PauseSubState.goBack)
-			{
-			    
-				openSubState(new PauseModeSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
-				//PauseSubState.goToGameplayChangers = false;
-				//PauseSubState.goBack = false;
-			}
-			else
-				openOptionMenu();
-		}else{
     		if (paused)
     		{
     			if (FlxG.sound.music != null && !startingSong){
@@ -1952,7 +1928,6 @@ class PlayState extends MusicBeatState
     		#if android
     		MusicBeatState.androidc.y = 0;
     		#end
-		}
 				
 		super.closeSubState();
 	}
