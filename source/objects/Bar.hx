@@ -62,6 +62,12 @@ class Bar extends FlxSpriteGroup
 			percent = (value != null ? value : 0);
 		}
 		else percent = 0;
+
+		if (percent > 65 && leftBar.color == FlxColor.GREEN || percent > 65 && leftBar.color == FlxColor.GRAY) FlxTween.color(leftBar, 1, FlxColor.GREEN, FlxColor.RED);
+		if (percent < 65 && leftBar.color == FlxColor.RED || percent < 65 && leftBar.color == FlxColor.GRAY) FlxTween.color(leftBar, 1, FlxColor.RED, FlxColor.GREEN);
+
+		if (percent > 35 && rightBar.color == FlxColor.RED || percent > 35 && rightBar.color == FlxColor.GRAY) FlxTween.color(rightBar, 1, FlxColor.RED, FlxColor.PURPLE);
+		if (percent < 35 && rightBar.color == FlxColor.PURPLE || percent < 35 && rightBar.color == FlxColor.GRAY) FlxTween.color(rightBar, 1, FlxColor.PURPLE, FlxColor.RED);
 		super.update(elapsed);
 	}
 	
@@ -73,10 +79,8 @@ class Bar extends FlxSpriteGroup
 
 	public function setColors(left:FlxColor = null, right:FlxColor = null)
 	{
-		if (left != null)
-			leftBar.color = left;
-		if (right != null)
-			rightBar.color = right;
+		FlxTween.color(leftBar, 1, FlxColor.BLACK, FlxColor.GRAY);
+		FlxTween.color(rightBar, 1, FlxColor.BLACK, FlxColor.GRAY);
 	}
 
 	public function updateBar()
