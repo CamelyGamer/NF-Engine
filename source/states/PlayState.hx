@@ -699,24 +699,13 @@ class PlayState extends MusicBeatState
 		//uiGroup.add(timeTxt);
 		add(timeTxt);
 		
-		if (stageUI != "pixel") {
-			healthBar = new Bar(-180, 0, 'healthBar', function() return health, 0, 100, 90);
-			healthBar.screenCenter(Y);
-			healthBar.leftToRight = false;
-			healthBar.scrollFactor.set();
-			healthBar.visible = !ClientPrefs.data.hideHud;
-			healthBar.alpha = 0;
-			//healthBar.setBounds(3, 6);
-			}
-			if (stageUI == "pixel") {
-			healthBar = new Bar(-180, 0, 'healthBarPIXEL', function() return health, 0, 100, 90);
-			healthBar.screenCenter(Y);
-			healthBar.leftToRight = false;
-			healthBar.scrollFactor.set();
-			healthBar.visible = !ClientPrefs.data.hideHud;
-			healthBar.alpha = 0;
-			//healthBar.setBounds(3, 6);
-			}
+		healthBar = new Bar(-180, 0, 'healthBar', function() return health, 0, 100, 90);
+		healthBar.screenCenter(Y);
+		healthBar.leftToRight = false;
+		healthBar.scrollFactor.set();
+		healthBar.visible = !ClientPrefs.data.hideHud;
+		healthBar.alpha = 0;
+		//healthBar.setBounds(3, 6);
 
 		add(healthBar);
 		healthBar.alpha = ClientPrefs.data.healthBarAlpha;
@@ -733,29 +722,15 @@ class PlayState extends MusicBeatState
 		iconP2.alpha = ClientPrefs.data.healthBarAlpha;
 		uiGroup.add(iconP2);
 
-		if (stageUI != "pixel") {
-			scoreTxt = new FlxText(0, 0, FlxG.width, "", 20);
-			scoreTxt.setFormat(Paths.font("miss.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			scoreTxt.scrollFactor.set();
-			scoreTxt.borderSize = 1.25;
-			scoreTxt.antialiasing = ClientPrefs.data.antialiasing;
-			scoreTxt.visible = !ClientPrefs.data.hideHud;
-			scoreTxt.alpha = 0;
-			add(scoreTxt);
-			FlxTween.tween(scoreTxt, {alpha: 1}, 8);
-			}
-	
-			if (stageUI == "pixel") {
-				scoreTxt = new FlxText(0, 0, FlxG.width, "", 20);
-				scoreTxt.setFormat(Paths.font("pixel.otf"), 12, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				scoreTxt.scrollFactor.set();
-				scoreTxt.borderSize = 1.25;
-				scoreTxt.antialiasing = ClientPrefs.data.antialiasing;
-				scoreTxt.visible = !ClientPrefs.data.hideHud;
-				scoreTxt.alpha = 0;
-				add(scoreTxt);
-				FlxTween.tween(scoreTxt, {alpha: 1}, 8);
-			}
+		scoreTxt = new FlxText(0, 0, FlxG.width, "", 20);
+		scoreTxt.setFormat(Paths.font("miss.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.scrollFactor.set();
+		scoreTxt.borderSize = 1.25;
+		scoreTxt.antialiasing = ClientPrefs.data.antialiasing;
+		scoreTxt.visible = !ClientPrefs.data.hideHud;
+		scoreTxt.alpha = 0;
+		add(scoreTxt);
+		FlxTween.tween(scoreTxt, {alpha: 1}, 8);
 		
 		var marvelousRate:String = ClientPrefs.data.marvelousRating ? 'NOT FOUND\n' : '';
 		judgementCounter_S = new FlxText(10, 0, 0, "", 20);
@@ -793,16 +768,6 @@ class PlayState extends MusicBeatState
 			timeTxt.size = 24;
 			timeTxt.y += 3;
 		}
-
-		strumPlayAnim(true, 0, Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
-		strumPlayAnim(true, 1, Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
-		strumPlayAnim(true, 2, Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
-		strumPlayAnim(true, 3, Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
-
-		strumPlayAnim(false, 0, Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
-		strumPlayAnim(false, 1, Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
-		strumPlayAnim(false, 2, Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
-		strumPlayAnim(false, 3, Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
 		
 		var splash:NoteSplash = new NoteSplash(100, 100);
 		splash.setupNoteSplash(100, 100);
@@ -1253,6 +1218,16 @@ class PlayState extends MusicBeatState
 				setOnScripts('defaultOpponentStrumY' + i, opponentStrums.members[i].y);
 				//if(ClientPrefs.data.middleScroll) opponentStrums.members[i].visible = false;
 			}
+
+			strumPlayAnim(true, 0, Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
+			strumPlayAnim(true, 1, Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
+			strumPlayAnim(true, 2, Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
+			strumPlayAnim(true, 3, Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
+	
+			strumPlayAnim(false, 0, Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
+			strumPlayAnim(false, 1, Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
+			strumPlayAnim(false, 2, Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
+			strumPlayAnim(false, 3, Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
 
 			startedCountdown = true;
 			Conductor.songPosition = -Conductor.crochet * 5;
