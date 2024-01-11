@@ -382,6 +382,10 @@ class PlayState extends MusicBeatState
 	var isDad:Bool;
 	var isBF:Bool;
 
+	var mode1:String;
+	var mode2:String;
+	var TxtScore:String;
+
 	public var colorNum:FlxColor;
 
 	public var statusFade:Bool;
@@ -396,6 +400,8 @@ class PlayState extends MusicBeatState
 	public var status3:Bool = false;
 	public var status4:Bool = false;
 	public var status5:Bool = false;
+
+	public var FadeTime:FlxTimer;
 
 	public var failNoti:String = '';
 
@@ -660,6 +666,28 @@ class PlayState extends MusicBeatState
 				gf.visible = false;
 		}
 		stagesFunc(function(stage:BaseStage) stage.createPost());
+
+		if (ClientPrefs.data.concetration == true) {
+			if (ClientPrefs.data.language == 'Spanish') mode1 = 'ACTIVADO';
+			if (ClientPrefs.data.language == 'Inglish') mode1 = 'ACTIVATED';
+			if (ClientPrefs.data.language == 'Portuguese') mode1 = 'ATIVADO';
+		  }
+	  if (ClientPrefs.data.concetration == false) {
+			if (ClientPrefs.data.language == 'Spanish') mode1 = 'DESACTIVADO';
+			if (ClientPrefs.data.language == 'Inglish') mode1 = 'DISABLED';
+			if (ClientPrefs.data.language == 'Portuguese') mode1 = 'DESATIVADO';
+		  }
+
+	  if (ClientPrefs.data.alphahud == true) {
+			if (ClientPrefs.data.language == 'Spanish') mode2 = 'ACTIVADO';
+			if (ClientPrefs.data.language == 'Inglish') mode2 = 'ACTIVATED';
+			if (ClientPrefs.data.language == 'Portuguese') mode2 = 'ATIVADO';
+	  }
+	  if (ClientPrefs.data.alphahud == false) { 
+		   if (ClientPrefs.data.language == 'Spanish') mode2 = 'DESACTIVADO';
+		   if (ClientPrefs.data.language == 'Inglish') mode2 = 'DISABLED';
+		   if (ClientPrefs.data.language == 'Portuguese') mode2 = 'DESATIVADO';
+		  }
 		
 		
 		
@@ -843,7 +871,7 @@ class PlayState extends MusicBeatState
 		blackMode.cameras = [camVIP];
 		timeTxt.cameras = [camOther];
 		overlay.cameras = [camOther];
-		overlayLoost.cameras = [camther];
+		overlayLoost.cameras = [camOther];
 
 		startingSong = true;
 		
@@ -937,6 +965,8 @@ class PlayState extends MusicBeatState
 		
 		CustomFadeTransition.nextCamera = camOther;
 		if(eventNotes.length < 1) checkEventNote();
+
+		FadeTime = new FlxTimer();
 	}
 
 	function set_songSpeed(value:Float):Float
@@ -2076,10 +2106,6 @@ class PlayState extends MusicBeatState
 		}
 
 		if (!ClientPrefs.data.noneAnimations && ClientPrefs.data.overlays == true) {
-			if (healthBar.percent >= 80 && stageUI != "pixel" && !endingSong) FlxTween.tween(healthp, {alpha: ClientPrefs.data.healthBarAlpha}, 0.7);
-	
-			if (healthBar.percent <= 80 && stageUI != "pixel" && !endingSong) FlxTween.tween(healthp, {alpha: 0}, 0.1);
-	
 			if (healthBar.percent > 51) FlxTween.tween(overlay, {alpha: 1}, 0.1);
 	
 			if (healthBar.percent <= 49) FlxTween.tween(overlay, {alpha: 0}, 0.1);
@@ -2089,10 +2115,6 @@ class PlayState extends MusicBeatState
 			if (healthBar.percent > 26) FlxTween.tween(overlayLoost, {alpha: 0}, 0.1);
 		}
 		if (ClientPrefs.data.noneAnimations && ClientPrefs.data.overlays == true) {
-	
-			if (healthBar.percent >= 80 && stageUI != "pixel" && !endingSong) healthp.alpha = ClientPrefs.data.healthBarAlpha;
-	
-			if (healthBar.percent <= 80 && stageUI != "pixel" && !endingSong) healthp.alpha = 0;
 	
 			if (healthBar.percent > 51) overlay.alpha = 1;
 	
