@@ -76,7 +76,7 @@ import psychlua.HScript;
 import tea.SScript;
 #end
 
-import substates.PauseModeSubState;
+//import substates.PauseModeSubState;
 
 class PlayState extends MusicBeatState
 {
@@ -2311,7 +2311,7 @@ class PlayState extends MusicBeatState
 					note.resetAnim = 0;
 				}
 		}
-		openSubState(new PauseModeSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		
 
 		#if desktop
